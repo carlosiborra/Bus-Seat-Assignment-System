@@ -19,7 +19,8 @@
 
 
 # AGENTE VIAJERO: Se debe visitar solo 1 vez cada nodo y todos los nodos deben ser visitados, volviendo al nodo inicial
-# Ruta con coste menor acumulado
+# Ruta con coste menor acumulado 
+# link interesante: https://knuth.uca.es/moodle/mod/page/view.php?id=3417
 
 # Factor de ramificación > 10
 
