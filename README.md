@@ -27,6 +27,8 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Crear el .gitignore
 - [X] Crear el venv
 - [X] Crear el requirements.txt
+- [ ] Externalizar las funciones
+- [ ] Crear la restricción de los hermanos
 
 ## Preguntas a responder:
 
@@ -35,4 +37,3 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] ¿Es necesario usar X, C y R's en las estructuras de las tuplas?
 - [X] ¿Cuentan las puertas y el chofer como posiciones del bus? (de la misma forma que el pasillo no lo hace)
 - [X] ¿Se han de crear listas externas o es irrelevante, tema de velocidad, optimización...?
-- [X] Como cambiar los datos de salida
