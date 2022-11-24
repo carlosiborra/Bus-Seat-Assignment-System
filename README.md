@@ -29,11 +29,13 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Crear el requirements.txt
 - [ ] Externalizar las funciones
 - [ ] Crear la restricción de los hermanos
+- [ ] Eliminar los arrays y dejar solo los arrays de arrays o viceversa
 
-## Preguntas a responder:
+## Dudas a responder:
 
 - [X] ¿Se debe seguir de forma estricta la distribución de los ficheros?
 - [X] ¿Se puede usar el bus con posición vertical? Es más eficiente que el horizontal (que aparece en el pdf).
 - [X] ¿Es necesario usar X, C y R's en las estructuras de las tuplas?
 - [X] ¿Cuentan las puertas y el chofer como posiciones del bus? (de la misma forma que el pasillo no lo hace)
 - [X] ¿Se han de crear listas externas o es irrelevante, tema de velocidad, optimización...?
+- [ ] ¿Afectan las pertas a los alumnos conflictivos (entre ciclo 1 y 2)? o ¿siguen tienendo que dejar espacio con otro conflictivos sin contar las puertas?
