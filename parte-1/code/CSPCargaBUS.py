@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 
 """ importing libraries """
-from constraint import *
 import json
+from random import randint
+from constraint import *
+
 
 # Importamos los modulos necesarios
 import data
@@ -294,25 +296,18 @@ def parse_solution(solucion_in):
 
 
 # Nos piden imprimir el número de soluciones
-num_soluciones = len(problem.getSolutions())
-soluciones = f"Número de soluciones: {num_soluciones}"
-print(soluciones)
+soluciones = problem.getSolutions()
+num_soluciones = len(soluciones)
+res_num_soluciones = f"Número de soluciones: {num_soluciones}"
+print(f"Número de soluciones: {num_soluciones}")
 
-# Obtenemos tres soluciones distintas y aleatorias y las imprimimos
-# ! SON 3 soluciones DISTINTAS
+# Obtenemos tres soluciones distintas y aleatorias de todas las soluciones
+# ! Se podría hacer una función que devuelva una solución aleatoria y externalizarla
 for i in range(3):
-    solucion = problem.getSolution()
-    solucion = parse_solution(solucion)
-    print(solucion)
+    solucion = soluciones[randint(0, num_soluciones-1)]
+    solucion_pars = parse_solution(solucion)
+    print(solucion_pars)
 
-
-# solution0, solution1, solution2 = problem.getSolution(
-# ), problem.getSolution(), problem.getSolution()
-# print(solution0, solution1, solution2)
-
-# solution_par0, solution_par1, solution_par2 = parse_solution(
-#     solution0), parse_solution(solution1), parse_solution(solution2)
-# print(solution_par0, solution_par1, solution_par2)
 
 # TODO: meter las funciones de las restricciones en el archivo de constraints.py
 

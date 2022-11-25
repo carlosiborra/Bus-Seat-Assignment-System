@@ -31,7 +31,7 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Crear la restricción de los hermanos
 - [X] Crear la restricción de los hermanos
 - [ ] Crear la función write al archivo de salida
-- [ ] Sacar 3 soluciones DISTINTAS
+- [X] Sacar 3 soluciones DISTINTAS y ALEATORIAS
 
 ## Dudas a responder:
 
