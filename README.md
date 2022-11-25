@@ -34,13 +34,13 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [ ] Externalizar las funciones
 - [X] Crear la restricción de los hermanos
 - [X] Crear la restricción de los hermanos
-- [ ] Crear la función write al archivo de salida
+- [X] Crear la función write al archivo de salida
 - [X] Sacar 3 soluciones DISTINTAS y ALEATORIAS
 - [X] Crear el archivo .sh para ejecutar el código
 <br/><br/>
 
 ## Dudas a responder:
-### Parte 2:
+### Parte 1:
 - [X] ¿Se debe seguir de forma estricta la distribución de los ficheros?
 - [X] ¿Se puede usar el bus con posición vertical? Es más eficiente que el horizontal (que aparece en el pdf).
 - [X] ¿Es necesario usar X, C y R's en las estructuras de las tuplas?

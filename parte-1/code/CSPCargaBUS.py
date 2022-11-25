@@ -9,8 +9,8 @@ from constraint import *
 
 # Importamos los modulos necesarios
 import data
-import read
-
+from read import read_input
+from write import write_result
 
 # ? Antes de nada, obtenemos el argumento (path) pasado por consola
 def command_prompt():
@@ -29,7 +29,7 @@ print("PATH: ", command_prompt())
 
 def read_path(path="./parte-1/CSP-tests/alumnos00") -> list:
     """ Leemos el archivo .csv y lo guardamos en una lista de listas """
-    return read.read(path)
+    return read_input(path)
 
 
 lista_alumnos = read_path(str(command_prompt()))
@@ -320,14 +320,14 @@ res_num_soluciones = f"Número de soluciones: {num_soluciones}"
 print(f"Número de soluciones: {num_soluciones}")
 
 # Obtenemos tres soluciones distintas y aleatorias de todas las soluciones
-# ! Se podría hacer una función que devuelva una solución aleatoria y externalizarla !!!!
+# TODO: modularizar
+# Hacer que se guarden las 3 variables
+rand_sol = []
 for i in range(3):
     solucion = soluciones[randint(0, num_soluciones-1)]
     solucion_pars = parse_solution(solucion)
+    rand_sol.append(solucion_pars)
     print(solucion_pars)
 
-
-# TODO: meter las funciones de las restricciones en el archivo de constraints.py
-
-
-# NOTA, PARA QUE FUNCIONE LA RESTRICCION DE LOS HERMANOS, SOLO TENDREMOS QUE AÑADIRLOS COMO RESTRICCIONES EN LOS IF DE LAS DEMAS RESTRICCIONES
+# Función para exportar el resultado
+write_result(str(command_prompt()) + '.output', res_num_soluciones, rand_sol)
