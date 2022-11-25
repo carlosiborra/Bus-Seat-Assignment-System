@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """ importing libraries """
-import json
+import sys
 from random import randint
 from constraint import *
 
@@ -10,6 +10,29 @@ from constraint import *
 # Importamos los modulos necesarios
 import data
 import read
+
+
+# ? Antes de nada, obtenemos el argumento (path) pasado por consola
+def command_prompt():
+    """ Obtenemos el argumento (path) pasado por consola """
+    if len(sys.argv) < 2 or len(sys.argv) > 2:
+        print("Error: Se necesita un argumento (el path al test)")
+        sys.exit(1)
+    return f"{sys.argv[1]}"
+
+
+print("PATH: ", command_prompt())
+
+# Leemos el archivo .csv y lo guardamos en un array de arrays
+# Los path pueden estar en formato ./parte-1/CSP-tests/alumnos00 o .\\parte1\\CSP-tests\\alumnos00
+
+
+def read_path(path="./parte-1/CSP-tests/alumnos00") -> list:
+    """ Leemos el archivo .csv y lo guardamos en una lista de listas """
+    return read.read(path)
+
+
+lista_alumnos = read_path(str(command_prompt()))
 
 # Definición de una variable3 como nuestro problema de CSP
 problem = Problem()
@@ -29,11 +52,6 @@ alumnos_hermanos = []
 alumnos_id = []
 
 
-# TODO: hay que hacer que se pueda llamar por terminal con el _main_:
-# Leemos el archivo .csv y lo guardamos en una lista de listas
-lista_alumnos = read.read("parte-1/CSP-tests/alumnos00")
-
-
 # Al final los alumnos solo puede pertenecer al ciclo 1 o al ciclo 2
 # Por tanto, carece de sentido añadir más dominios si ya se restringirá mas adelante
 # No habrá tanto coste computacional como el acceso repetido a un array de arrays grande
@@ -44,7 +62,7 @@ def id_alumno(estudiante):
     alumnos_id.append(estudiante[0])
 
 
-def ciclo_alumno(estudiante):
+def ciclo_alumno(estudiante) -> list:
     """ Obtenemos el ciclo al que pertenece el alumno y le asignamos el dominio """
     # Si los hermanos están en distintos ciclos, se irán al ciclo 1
     if estudiante[4] != '0' and lista_alumnos[int(estudiante[4])-1][1] != estudiante[1]:
@@ -59,7 +77,7 @@ def ciclo_alumno(estudiante):
     return dominio_segundo_ciclo
 
 
-def movilidad_alumno(estudiante, dom):
+def movilidad_alumno(estudiante, dom) -> list:
     """ Si el alumno tiene movilidad reducida, le asignamos el resultado del dominio """
     if estudiante[3] == 'R':
         # Creamos un nuevo dominio de la conjunción del dominio activo y el de movilidad reducida
@@ -302,7 +320,7 @@ res_num_soluciones = f"Número de soluciones: {num_soluciones}"
 print(f"Número de soluciones: {num_soluciones}")
 
 # Obtenemos tres soluciones distintas y aleatorias de todas las soluciones
-# ! Se podría hacer una función que devuelva una solución aleatoria y externalizarla
+# ! Se podría hacer una función que devuelva una solución aleatoria y externalizarla !!!!
 for i in range(3):
     solucion = soluciones[randint(0, num_soluciones-1)]
     solucion_pars = parse_solution(solucion)

@@ -19,9 +19,13 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 
   - `pip install -r requirements.txt`
 - Para ver correctamente el color de los comentarios (!, ?, * ...) en el código, instalar la extensión "Better Comments" en VSCode.
+- Para poder ejecutarlo correctamente, debemos ejecutar el archivo desde un Bash (el de git mismamente) (en VSCode, añadir un nuevo terminal y seleccionar bash). Si no, no funcionará correctamente.
+  <br/>De todas maneras, se puede ejecutar desde Linux (recomendado).<br/> Imágen de ejemplo de ejecución (*con el comando sh ./parte-1/code/CSP-calls.sh*):<br/>
+  ![1669374620519](image/README/1669374620519.png)
+<br/><br/>
 
 ## TODO's:
-
+### Parte 1:
 - [X] Crear el repositorio
 - [X] Crear el README.md
 - [X] Crear el .gitignore
@@ -32,12 +36,15 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Crear la restricción de los hermanos
 - [ ] Crear la función write al archivo de salida
 - [X] Sacar 3 soluciones DISTINTAS y ALEATORIAS
+- [X] Crear el archivo .sh para ejecutar el código
+<br/><br/>
 
 ## Dudas a responder:
-
+### Parte 2:
 - [X] ¿Se debe seguir de forma estricta la distribución de los ficheros?
 - [X] ¿Se puede usar el bus con posición vertical? Es más eficiente que el horizontal (que aparece en el pdf).
 - [X] ¿Es necesario usar X, C y R's en las estructuras de las tuplas?
 - [X] ¿Cuentan las puertas y el chofer como posiciones del bus? (de la misma forma que el pasillo no lo hace)
 - [X] ¿Se han de crear listas externas o es irrelevante, tema de velocidad, optimización...?
 - [X] ¿Afectan las pertas a los alumnos conflictivos (entre ciclo 1 y 2)? o ¿siguen tienendo que dejar espacio con otro conflictivos sin contar las puertas?
+- [ ] ¿Se puede usar el formato de path: *python ./parte-1/code/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos00*?
