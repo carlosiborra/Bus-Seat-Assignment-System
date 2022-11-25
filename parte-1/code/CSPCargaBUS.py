@@ -3,6 +3,7 @@
 
 """ importing libraries """
 from constraint import *
+import json
 
 # Importamos los modulos necesarios
 import data
@@ -28,7 +29,7 @@ alumnos_id = []
 
 # TODO: hay que hacer que se pueda llamar por terminal con el _main_:
 # Leemos el archivo .csv y lo guardamos en una lista de listas
-lista_alumnos = read.read("parte-1/CSP-tests/test0/test0.txt")
+lista_alumnos = read.read("parte-1/CSP-tests/alumnos00")
 
 
 # Al final los alumnos solo puede pertenecer al ciclo 1 o al ciclo 2
@@ -178,8 +179,8 @@ for i, alumnoA in enumerate(lista_alumnos):
     for j, alumnoB in enumerate(lista_alumnos):
         # Si son dos alumnos conflictivos o uno es conflictivo y el otro mov.reducida
         # Excepto si son hermanos, que no han de cumplir estas restricciones
-        if ((alumnoA[0] in alumnos_conflictivos and alumnoB[0] in alumnos_conflictivos) or \
-                (alumnoA[0] in alumnos_conflictivos and alumnoB[0] in alumnos_movilidad_reducida) or \
+        if ((alumnoA[0] in alumnos_conflictivos and alumnoB[0] in alumnos_conflictivos) or
+                (alumnoA[0] in alumnos_conflictivos and alumnoB[0] in alumnos_movilidad_reducida) or
                 (alumnoA[0] in alumnos_movilidad_reducida and alumnoB[0] in alumnos_conflictivos)) and \
                 (alumnoA[0] != alumnoB[0]) and \
                 ((alumnoA[4] != alumnoB[0]) and (alumnoB[4] != alumnoA[0])):
@@ -195,7 +196,7 @@ for i, alumnoA in enumerate(lista_alumnos):
 def hermanos(posicion_alumnoA, posicion_alumnoB):
     """ Si dos alumnos son hermanos, tienen que sentarse juntos """
     if (posicion_alumnoA[0] == posicion_alumnoB[0]) and \
-            (posicion_alumnoA[1] == posicion_alumnoB[1]-1 or \
+            (posicion_alumnoA[1] == posicion_alumnoB[1]-1 or
              posicion_alumnoA[1] == posicion_alumnoB[1]+1) and \
             (posicion_alumnoA[1]+1, posicion_alumnoB[1]) != 2 and \
             (posicion_alumnoB[1]+1, posicion_alumnoA[1]) != 2 and \
@@ -214,6 +215,16 @@ def hermanos_reducida(posicion_alumnoA, posicion_alumnoB):
     return False
 
 
+# Si tienen != ciclos, constraint para que el mayor esté al lado del pasillo
+def hermanos_pasillo(posicion_hermano_mayor):
+    """ Si dos hermanos, != ciclos, el mayor (alumno entrante) debe estar pegado al pasillo """
+    # El mayor ha de estar en la columna 1 o 2 (pegado al pasillo)
+    # Que el menor haya de estar al lado del mayor en la (ventana), lo hace el constraint hermanos
+    if posicion_hermano_mayor[1] == 1 or posicion_hermano_mayor[1] == 2:
+        return True
+    return False
+
+
 # Creamos las restricciones de los hermanos
 for i, alumnoA in enumerate(lista_alumnos):
     for j, alumnoB in enumerate(lista_alumnos):
@@ -222,14 +233,28 @@ for i, alumnoA in enumerate(lista_alumnos):
                 (alumnoA[0] != alumnoB[0]):
             print(
                 f'Hermanos {alumnoA[0]}, {alumnoB[0]}, {alumnos_hermanos}')
-            # Si uno de ellos tiene movilidad reducida, tienen que estar en el mismo ciclo
-            if (alumnoA[0] in alumnos_movilidad_reducida or alumnoB[0] in alumnos_movilidad_reducida):
+            # Si uno de ellos tiene movilidad reducida, se sientan en el mismo ciclo
+            if (alumnoA[0] in alumnos_movilidad_reducida) or\
+                    (alumnoB[0] in alumnos_movilidad_reducida):
                 problem.addConstraint(
                     hermanos_reducida, (f'{alumnoA[0]}', f'{alumnoB[0]}'))
-            # Si no, pueden estar en cualquier ciclo
+
+            # Si no, han de estar juntos
             else:
                 problem.addConstraint(
                     hermanos, (f'{alumnoA[0]}', f'{alumnoB[0]}'))
+
+                # Si tienen != ciclos, constraint para que el mayor esté al lado del pasillo
+                # Siempre que no hayan hermanos de mov. reducida
+                if alumnoA[1] != alumnoB[1]:
+                    # Si el mayor es el alumno A (este pertece al ciclo 2)
+                    if alumnoA[1] > alumnoB[1]:
+                        problem.addConstraint(
+                            hermanos_pasillo, (f'{alumnoA[0]}'))
+                    # Si el alumno B es el mayor (este pertece al ciclo 2)
+                    else:
+                        problem.addConstraint(
+                            hermanos_pasillo, (f'{alumnoB[0]}'))
 
 
 # ! DEVOLVEMOS LAS SOLUCIONES
@@ -237,11 +262,57 @@ for i, alumnoA in enumerate(lista_alumnos):
 # TODO: hay que transformar e insertar en otro archivo la solución
 # ! ha de impimirse en el formato: {’3XX’: 11, ’1CX’: 12,
 # ! ’6XX’: 15, ’5XX’: 16, ’8XR’: 18, ’4CR’: 20, ’2XX’: 31, ’7CX’: 32}
-solution = problem.getSolution()
-print(solution)
+
 # Obtenemos todas las soluciones
 # solutions = problem.getSolutions()
 # print(solutions)
+
+# Creamos una función para para cambiar el formato de la solución
+# {’3XX’: 11, ’1CX’: 12, ’6XX’: 15, ’5XX’: 16, ’8XR’: 18, ’4CR’: 20, ’2XX’: 31, ’7CX’: 32}
+
+
+def parse_solution(solucion_in):
+    """ Parseamos la solución para que sea de la forma: {’3XX’: (1, 1), ’1CX’: (1, 2), ...} """
+    # Creamos un diccionario vacío
+    solution_parsed = {}
+    # Recorremos el diccionario e insertamos sus tuplas
+    try:
+        for key, value in solucion_in.items():
+            # Cambiamos la key al formato: '3CR'
+            key = key + str(lista_alumnos[int(key)-1][2]) +\
+                str(lista_alumnos[int(key)-1][3])
+            # El ciclo 1 va de la posición 1 a la 16, el ciclo 2 de la 17 a la 32
+            posicion = value[0]*4 + (value[1]+1)
+            solution_parsed[key] = posicion
+        # Ordenamos el diccionario por la posición
+        solution_parsed = dict(
+            sorted(solution_parsed.items(), key=lambda item: item[1]))
+        return solution_parsed
+    except Exception as exception:
+        print(f'No hay solución: {exception}')
+        return "{None}"
+
+
+# Nos piden imprimir el número de soluciones
+num_soluciones = len(problem.getSolutions())
+soluciones = f"Número de soluciones: {num_soluciones}"
+print(soluciones)
+
+# Obtenemos tres soluciones distintas y aleatorias y las imprimimos
+# ! SON 3 soluciones DISTINTAS
+for i in range(3):
+    solucion = problem.getSolution()
+    solucion = parse_solution(solucion)
+    print(solucion)
+
+
+# solution0, solution1, solution2 = problem.getSolution(
+# ), problem.getSolution(), problem.getSolution()
+# print(solution0, solution1, solution2)
+
+# solution_par0, solution_par1, solution_par2 = parse_solution(
+#     solution0), parse_solution(solution1), parse_solution(solution2)
+# print(solution_par0, solution_par1, solution_par2)
 
 # TODO: meter las funciones de las restricciones en el archivo de constraints.py
 

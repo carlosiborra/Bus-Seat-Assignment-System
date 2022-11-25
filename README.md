@@ -28,8 +28,10 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Crear el venv
 - [X] Crear el requirements.txt
 - [ ] Externalizar las funciones
-- [ ] Crear la restricción de los hermanos
-- [ ] Eliminar los arrays y dejar solo los arrays de arrays o viceversa
+- [X] Crear la restricción de los hermanos
+- [X] Crear la restricción de los hermanos
+- [ ] Crear la función write al archivo de salida
+- [ ] Sacar 3 soluciones DISTINTAS
 
 ## Dudas a responder:
 
@@ -38,4 +40,4 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] ¿Es necesario usar X, C y R's en las estructuras de las tuplas?
 - [X] ¿Cuentan las puertas y el chofer como posiciones del bus? (de la misma forma que el pasillo no lo hace)
 - [X] ¿Se han de crear listas externas o es irrelevante, tema de velocidad, optimización...?
-- [ ] ¿Afectan las pertas a los alumnos conflictivos (entre ciclo 1 y 2)? o ¿siguen tienendo que dejar espacio con otro conflictivos sin contar las puertas?
+- [X] ¿Afectan las pertas a los alumnos conflictivos (entre ciclo 1 y 2)? o ¿siguen tienendo que dejar espacio con otro conflictivos sin contar las puertas?
