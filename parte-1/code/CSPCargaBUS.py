@@ -31,6 +31,7 @@ def read_path(path="./parte-1/CSP-tests/alumnos00") -> list:
     """ Leemos el archivo .csv y lo guardamos en una lista de listas """
     return read_input(path)
 
+
 # Guardamos como variable el array de arrays
 lista_alumnos = read_path(str(command_prompt()))
 
@@ -43,7 +44,6 @@ dominio_sin_movilidad_reducida = data.dominio_sin_movilidad_reducida
 dominio_primer_ciclo = data.dominio_primer_ciclo
 dominio_segundo_ciclo = data.dominio_segundo_ciclo
 
-# TODO: eliminar las listas no usadas
 # Creamos listas donde se almacenarán las variables (alumnos)
 alumnos_movilidad_reducida = []
 alumnos_segundo_ciclo = []
@@ -57,9 +57,9 @@ alumnos_hermanos = []
 # ! -------------------------------------------------------------------
 
 # Se llamarán a las funciones anteriores para ir restringiendo los dominios
-
+print(f"\n\nEjecutando {command_prompt()}\n")
 for i, alumno in enumerate(lista_alumnos):
-    print(f'alumno{i+1}', alumno)
+    print(f'Alumno {i+1}:', alumno)
     dominio = []
 
     # Comprobamos si el alumno pertenece al primer ciclo o al segundo ciclo
@@ -76,7 +76,7 @@ for i, alumno in enumerate(lista_alumnos):
     # Si el alumno tiene hermanos, los añadimos a la lista de hermanos
     hermano(alumno, alumnos_hermanos)
 
-    print(f'estudiante{alumno[0]}', dominio)
+    print(f'Dominio alumno {alumno[0]}:', dominio)
     problem.addVariable(f'{alumno[0]}', dominio)
 
 
@@ -169,8 +169,8 @@ for i, alumnoA in enumerate(lista_alumnos):
                 (alumnoA[0] in alumnos_movilidad_reducida and alumnoB[0] in alumnos_conflictivos)) and \
                 (alumnoA[0] != alumnoB[0]) and \
                 ((alumnoA[4] != alumnoB[0]) and (alumnoB[4] != alumnoA[0])):
-            print(
-                f'Conflictividad {alumnoA[0]}, {alumnoB[0]}, {alumnos_conflictivos}')
+            # print(
+            #     f'Conflictividad {alumnoA[0]}, {alumnoB[0]}, {alumnos_conflictivos}')
             problem.addConstraint(
                 conflictivos, (f'{alumnoA[0]}', f'{alumnoB[0]}'))
 
@@ -216,8 +216,8 @@ for i, alumnoA in enumerate(lista_alumnos):
         # Si son dos alumnos hermanos y no son el mismo, irán juntos
         if ((alumnoA[4] == alumnoB[0]) and (alumnoB[4] == alumnoA[0])) and \
                 (alumnoA[0] != alumnoB[0]):
-            print(
-                f'Hermanos {alumnoA[0]}, {alumnoB[0]}, {alumnos_hermanos}')
+            # print(
+            #     f'Hermanos {alumnoA[0]}, {alumnoB[0]}, {alumnos_hermanos}')
             # Si uno de ellos tiene movilidad reducida, se sientan en el mismo ciclo
             if (alumnoA[0] in alumnos_movilidad_reducida) or\
                     (alumnoB[0] in alumnos_movilidad_reducida):
@@ -254,7 +254,7 @@ for i, alumnoA in enumerate(lista_alumnos):
 soluciones = problem.getSolutions()
 num_soluciones = len(soluciones)
 res_num_soluciones = f"Número de soluciones: {num_soluciones}"
-print(f"\nNúmero de soluciones: {num_soluciones}")
+print(f"Número de soluciones: {num_soluciones}")
 
 # Obtenemos tres soluciones distintas y aleatorias de todas las soluciones posibles
 # Parseamos todas las soluciones y las guardamos (obtain_sol llama a la función parse_solution)

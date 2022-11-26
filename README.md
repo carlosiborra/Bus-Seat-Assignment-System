@@ -52,6 +52,7 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] ¿Se han de crear listas externas o es irrelevante, tema de velocidad, optimización...?
 - [X] ¿Afectan las pertas a los alumnos conflictivos (entre ciclo 1 y 2)? o ¿siguen tienendo que dejar espacio con otro conflictivos sin contar las puertas?
 - [ ] ¿Se puede usar el formato de path: *python ./parte-1/code/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos00*?
+- [ ] ¿Ha de ser la primera solución aleatoria también?
 <br/>
 
 ### Parte 2
