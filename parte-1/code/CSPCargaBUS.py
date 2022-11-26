@@ -11,6 +11,10 @@ from constraint import *
 import data
 from read import read_input
 from write import write_result
+from functions import ciclo_alumno, movilidad_alumno
+from functions import conflictivo, hermano
+from functions import obtain_sol
+
 
 # ? Antes de nada, obtenemos el argumento (path) pasado por consola
 def command_prompt():
@@ -21,17 +25,13 @@ def command_prompt():
     return f"{sys.argv[1]}"
 
 
-print("PATH: ", command_prompt())
-
-# Leemos el archivo .csv y lo guardamos en un array de arrays
+# ? Leemos el archivo .csv y lo guardamos en un array de arrays
 # Los path pueden estar en formato ./parte-1/CSP-tests/alumnos00 o .\\parte1\\CSP-tests\\alumnos00
-
-
 def read_path(path="./parte-1/CSP-tests/alumnos00") -> list:
     """ Leemos el archivo .csv y lo guardamos en una lista de listas """
     return read_input(path)
 
-
+# Guardamos como variable el array de arrays
 lista_alumnos = read_path(str(command_prompt()))
 
 # Definición de una variable3 como nuestro problema de CSP
@@ -43,63 +43,19 @@ dominio_sin_movilidad_reducida = data.dominio_sin_movilidad_reducida
 dominio_primer_ciclo = data.dominio_primer_ciclo
 dominio_segundo_ciclo = data.dominio_segundo_ciclo
 
+# TODO: eliminar las listas no usadas
 # Creamos listas donde se almacenarán las variables (alumnos)
 alumnos_movilidad_reducida = []
 alumnos_segundo_ciclo = []
 alumnos_primer_ciclo = []
 alumnos_conflictivos = []
 alumnos_hermanos = []
-alumnos_id = []
 
 
-# Al final los alumnos solo puede pertenecer al ciclo 1 o al ciclo 2
-# Por tanto, carece de sentido añadir más dominios si ya se restringirá mas adelante
-# No habrá tanto coste computacional como el acceso repetido a un array de arrays grande
+# ! -------------------------------------------------------------------
+# ! CREAMOS LAS VARIABLES
+# ! -------------------------------------------------------------------
 
-
-def id_alumno(estudiante):
-    """ Añadimos el id del alumno a la lista de id's """
-    alumnos_id.append(estudiante[0])
-
-
-def ciclo_alumno(estudiante) -> list:
-    """ Obtenemos el ciclo al que pertenece el alumno y le asignamos el dominio """
-    # Si los hermanos están en distintos ciclos, se irán al ciclo 1
-    if estudiante[4] != '0' and lista_alumnos[int(estudiante[4])-1][1] != estudiante[1]:
-        alumnos_primer_ciclo.append(estudiante[0])
-        return dominio_primer_ciclo
-    # En cambio, si no tienen hermanos o estos tienen el mismo ciclo, se irán a su ciclo
-    if estudiante[1] == '1':
-        # Añadimos el alumno a la lista de alumnos del primer ciclo
-        alumnos_primer_ciclo.append(estudiante[0])
-        return dominio_primer_ciclo
-    alumnos_segundo_ciclo.append(estudiante[0])
-    return dominio_segundo_ciclo
-
-
-def movilidad_alumno(estudiante, dom) -> list:
-    """ Si el alumno tiene movilidad reducida, le asignamos el resultado del dominio """
-    if estudiante[3] == 'R':
-        # Creamos un nuevo dominio de la conjunción del dominio activo y el de movilidad reducida
-        alumnos_movilidad_reducida.append(estudiante[0])
-        return [x for x in dom if x in dominio_movilidad_reducida]
-    return dom
-
-
-def conflictivo(estudiante):
-    """ Si el alumno es conflictivo, lo añadimos a la lista de conflictivos """
-    if estudiante[2] == 'C':
-        alumnos_conflictivos.append(estudiante[0])
-
-
-def hermano(estudiante):
-    """ Si el alumno tiene hermanos, los añadimos a la lista de hermanos """
-    if estudiante[4] != '0':
-        # Añadimos un array con el id del alumno y el id de su hermano
-        alumnos_hermanos.append([estudiante[0], estudiante[4]])
-
-
-# ! CREACIÓN DE VARIABLES
 # Se llamarán a las funciones anteriores para ir restringiendo los dominios
 
 for i, alumno in enumerate(lista_alumnos):
@@ -108,25 +64,34 @@ for i, alumno in enumerate(lista_alumnos):
 
     # Comprobamos si el alumno pertenece al primer ciclo o al segundo ciclo
     # Si el alumno tiene hermanos, entonces puede que vayan juntos en otro ciclo
-    dominio = ciclo_alumno(alumno)
+    dominio = ciclo_alumno(lista_alumnos, alumno,
+                           alumnos_primer_ciclo, alumnos_segundo_ciclo)
 
     # Si el alumno tiene movilidad reducida, acotamos sus asientos
-    dominio = movilidad_alumno(alumno, dominio)
+    dominio = movilidad_alumno(alumno, dominio, alumnos_movilidad_reducida)
 
     # Si el alumno es conflictivo, lo añadimos a la lista de conflictivos
-    conflictivo(alumno)
+    conflictivo(alumno, alumnos_conflictivos)
 
     # Si el alumno tiene hermanos, los añadimos a la lista de hermanos
-    hermano(alumno)
-    print(f'hermanos{i+1}', alumnos_hermanos)
+    hermano(alumno, alumnos_hermanos)
 
     print(f'estudiante{alumno[0]}', dominio)
     problem.addVariable(f'{alumno[0]}', dominio)
 
 
-# ! CREACIÓN DE RESTRICCIONES
-# Separamos la creación de las restricciones en funciones para facilitar su lectura y mantenimiento
+print(f"\nAlumnos primer ciclo: {alumnos_primer_ciclo}")
+print(f"Alumnos segundo ciclo: {alumnos_segundo_ciclo}")
+print(f"Alumnos con mov. reducida: {alumnos_movilidad_reducida}")
+print(f"Alumnos conflictivos: {alumnos_conflictivos}")
+print(f"Alumnos hermanos: {alumnos_hermanos}\n")
 
+
+# ! -------------------------------------------------------------------
+# ! CREAMOS LAS RESTRICCIONES
+# ! -------------------------------------------------------------------
+
+# Separamos la creación de las restricciones en funciones para facilitar su lectura y mantenimiento
 
 # ? 1. Todo el alumnado tiene que tener asignado un asiento y solo uno
 problem.addConstraint(AllDifferentConstraint())
@@ -277,57 +242,25 @@ for i, alumnoA in enumerate(lista_alumnos):
                             hermanos_pasillo, (f'{alumnoB[0]}'))
 
 
-# ! DEVOLVEMOS LAS SOLUCIONES
+# ! -------------------------------------------------------------------
+# ! EXPORTAMOS LAS SOLUCIONES
+# ! -------------------------------------------------------------------
+
 # Obtenemos una solución
-# TODO: hay que transformar e insertar en otro archivo la solución
-# ! ha de impimirse en el formato: {’3XX’: 11, ’1CX’: 12,
-# ! ’6XX’: 15, ’5XX’: 16, ’8XR’: 18, ’4CR’: 20, ’2XX’: 31, ’7CX’: 32}
-
-# Obtenemos todas las soluciones
-# solutions = problem.getSolutions()
-# print(solutions)
-
 # Creamos una función para para cambiar el formato de la solución
 # {’3XX’: 11, ’1CX’: 12, ’6XX’: 15, ’5XX’: 16, ’8XR’: 18, ’4CR’: 20, ’2XX’: 31, ’7CX’: 32}
 
-
-def parse_solution(solucion_in):
-    """ Parseamos la solución para que sea de la forma: {’3XX’: (1, 1), ’1CX’: (1, 2), ...} """
-    # Creamos un diccionario vacío
-    solution_parsed = {}
-    # Recorremos el diccionario e insertamos sus tuplas
-    try:
-        for key, value in solucion_in.items():
-            # Cambiamos la key al formato: '3CR'
-            key = key + str(lista_alumnos[int(key)-1][2]) +\
-                str(lista_alumnos[int(key)-1][3])
-            # El ciclo 1 va de la posición 1 a la 16, el ciclo 2 de la 17 a la 32
-            posicion = value[0]*4 + (value[1]+1)
-            solution_parsed[key] = posicion
-        # Ordenamos el diccionario por la posición
-        solution_parsed = dict(
-            sorted(solution_parsed.items(), key=lambda item: item[1]))
-        return solution_parsed
-    except Exception as exception:
-        print(f'No hay solución: {exception}')
-        return "{None}"
-
-
-# Nos piden imprimir el número de soluciones
+# Obtenemos todas las soluciones posibles y su número
 soluciones = problem.getSolutions()
 num_soluciones = len(soluciones)
 res_num_soluciones = f"Número de soluciones: {num_soluciones}"
-print(f"Número de soluciones: {num_soluciones}")
+print(f"\nNúmero de soluciones: {num_soluciones}")
 
-# Obtenemos tres soluciones distintas y aleatorias de todas las soluciones
-# TODO: modularizar
+# Obtenemos tres soluciones distintas y aleatorias de todas las soluciones posibles
+# Parseamos todas las soluciones y las guardamos (obtain_sol llama a la función parse_solution)
 # Hacer que se guarden las 3 variables
-rand_sol = []
-for i in range(3):
-    solucion = soluciones[randint(0, num_soluciones-1)]
-    solucion_pars = parse_solution(solucion)
-    rand_sol.append(solucion_pars)
-    print(solucion_pars)
+rand_sol = obtain_sol(lista_alumnos, soluciones, num_soluciones)
 
 # Función para exportar el resultado
+# Esta ha de tener el mismo path y nombre pero acabado en .output
 write_result(str(command_prompt()) + '.output', res_num_soluciones, rand_sol)
