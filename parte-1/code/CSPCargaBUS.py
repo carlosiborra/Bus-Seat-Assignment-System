@@ -252,6 +252,7 @@ for i, alumnoA in enumerate(lista_alumnos):
 
 # Obtenemos todas las soluciones posibles y su número
 soluciones = problem.getSolutions()
+solucion_init = problem.getSolution()
 num_soluciones = len(soluciones)
 res_num_soluciones = f"Número de soluciones: {num_soluciones}"
 print(f"Número de soluciones: {num_soluciones}")
@@ -259,7 +260,7 @@ print(f"Número de soluciones: {num_soluciones}")
 # Obtenemos tres soluciones distintas y aleatorias de todas las soluciones posibles
 # Parseamos todas las soluciones y las guardamos (obtain_sol llama a la función parse_solution)
 # Hacer que se guarden las 3 variables
-rand_sol = obtain_sol(lista_alumnos, soluciones, num_soluciones)
+rand_sol = obtain_sol(lista_alumnos, soluciones, solucion_init, num_soluciones)
 
 # Función para exportar el resultado
 # Esta ha de tener el mismo path y nombre pero acabado en .output

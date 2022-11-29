@@ -59,15 +59,19 @@ def hermano(estudiante, alumnos_hermanos):
 # ! -------------------------------------------------------------------
 
 
-def obtain_sol(lista_alumnos, soluciones, num_soluciones):
-    """ Obtenemos tres soluciones distintas y aleatorias del total de las soluciones """
+def obtain_sol(lista_alumnos, soluciones, solucion_init, num_soluciones):
+    """ Obtenemos 10 soluciones distintas y aleatorias (9) del total de las soluciones """
     rand_sol = []
-    for i in range(3):
+    # La primera solución será la dada por get_solution 
+    solucion_pars = parse_sol(lista_alumnos, solucion_init)
+    rand_sol.append(solucion_pars)
+    print(f"Solución particular {0}: {solucion_pars}")
+    for i in range(9):
         # Pasamos el len de soluciones como parámetro para no repetir cálculos innecesarios
         solucion = soluciones[randint(0, num_soluciones-1)]
         solucion_pars = parse_sol(lista_alumnos, solucion)
         rand_sol.append(solucion_pars)
-        print(f"Solución aleatoria {i+1}: {solucion_pars}")
+        print(f"Solución aleatoria {i+1}:  {solucion_pars}")
     return rand_sol
 
 

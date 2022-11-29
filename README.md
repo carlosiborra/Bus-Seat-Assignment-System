@@ -37,6 +37,7 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Sacar 3 soluciones DISTINTAS y ALEATORIAS
 - [X] Crear el archivo .sh para ejecutar el código
 - [ ] Eliminar variables (listas) no usadas
+- [ ] Crear tests específicos, sobre 15, check boundaries
 <br/>
 
 ### Parte 2
@@ -51,8 +52,10 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] ¿Cuentan las puertas y el chofer como posiciones del bus? (de la misma forma que el pasillo no lo hace)
 - [X] ¿Se han de crear listas externas o es irrelevante, tema de velocidad, optimización...?
 - [X] ¿Afectan las pertas a los alumnos conflictivos (entre ciclo 1 y 2)? o ¿siguen tienendo que dejar espacio con otro conflictivos sin contar las puertas?
-- [ ] ¿Se puede usar el formato de path: *python ./parte-1/code/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos00*?
-- [ ] ¿Ha de ser la primera solución aleatoria también?
+- [X] ¿Se puede usar el formato de path: *python ./parte-1/code/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos00*?
+- [X] ¿Ha de ser la primera solución aleatoria también o la primera que se lanza? Ahora mismo los 3 resultados son aleatorios.
+- [X] Tamaño y longitud de los tests, complejidad, etc.
+- [X] Forma de exportar los resultados
 <br/>
 
 ### Parte 2
