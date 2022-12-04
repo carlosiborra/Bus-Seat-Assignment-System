@@ -76,7 +76,7 @@ def obtain_sol(lista_alumnos, soluciones, solucion_init, num_soluciones):
 
 
 def parse_sol(lista_alumnos, solucion_in):
-    """ Parseamos la solución para que sea de la forma: {’3XX’: (1, 1), ’1CX’: (1, 2), ...} """
+    """ Parseamos la solución para que sea de la forma: {'3XX': (1, 1), '1CX': (1, 2), ...} """
     # Creamos un diccionario vacío
     solution_parsed = {}
     # Recorremos el diccionario e insertamos sus tuplas

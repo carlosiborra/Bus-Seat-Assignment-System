@@ -259,7 +259,7 @@ print(f"Número de soluciones: {num_soluciones}")
 
 # Obtenemos tres soluciones distintas y aleatorias de todas las soluciones posibles
 # Parseamos todas las soluciones y las guardamos (obtain_sol llama a la función parse_solution)
-# Hacer que se guarden las 3 variables
+# Hacer que se guarden las 10 soluciones (1 específica, 9 aleatorias)
 rand_sol = obtain_sol(lista_alumnos, soluciones, solucion_init, num_soluciones)
 
 # Función para exportar el resultado

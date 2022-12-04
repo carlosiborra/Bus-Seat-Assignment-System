@@ -37,7 +37,8 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Sacar 3 soluciones DISTINTAS y ALEATORIAS
 - [X] Crear el archivo .sh para ejecutar el código
 - [ ] Eliminar variables (listas) no usadas
-- [ ] Crear tests específicos, sobre 15, check boundaries
+- [ ] Crear tests específicos, sobre 15, check boundaries !!
+- [ ] SACAR TODO DE LA CARPETA CODE, REORDENAR !!
 <br/>
 
 ### Parte 2
