@@ -3,7 +3,6 @@
 
 """ importing libraries """
 import sys
-from random import randint
 from constraint import *
 
 
@@ -123,7 +122,6 @@ def mov_reducida(posicion_alumnoR, posicion_alumnoX):
 for i, alumnoA in enumerate(lista_alumnos):
     for j, alumnoB in enumerate(lista_alumnos):
         # print(f'({alumnoA[0]},{alumnoB[0]})')
-        # TODO: tiene sentido que sean dos if o por el contrario es mejor ejecutar un elif?
         # Si el alumno movilidad reducida es el A, B no puede sentarse a su lado
         if (alumnoA[0] in alumnos_movilidad_reducida) and (alumnoA[0] != alumnoB[0]):
             # print(f'A {alumnoA[0]}, {alumnoB[0]}, {alumnos_movilidad_reducida}')

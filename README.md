@@ -1,14 +1,17 @@
 # HyO. Práctica 2 por 100451170 y 100451258
+
 Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería informática, curso 3, cuatrimestre 1. Universidad Carlos III de Madrid.
 <br/><br/>
 
 ## Requisitos
+
 - Se recomienda usar Python 3.10.8
 - Se recomienda usar un entorno virtual para instalar las dependencias
 - Instalar las dependencias (en requirements.txt)
 <br/><br/>
 
 ## Notas a leer
+
 - Para entrar en el virtualenv (venv):
 
   - Windows: `venv\Scripts\activate.bat`
@@ -24,7 +27,9 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 <br/><br/>
 
 ## TODO's
-### Parte 1
+
+### Parte 1 - TODO's
+
 - [X] Crear el repositorio
 - [X] Crear el README.md
 - [X] Crear el .gitignore
@@ -41,12 +46,15 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [ ] SACAR TODO DE LA CARPETA CODE, REORDENAR !!
 <br/>
 
-### Parte 2
-- [ ] 
+### Parte 2 - TODO's
+
+- [ ] Eliminar duplicados
 <br/><br/>
 
 ## Dudas a responder
-### Parte 1
+
+### Parte 1 - Dudas
+
 - [X] ¿Se debe seguir de forma estricta la distribución de los ficheros?
 - [X] ¿Se puede usar el bus con posición vertical? Es más eficiente que el horizontal (que aparece en el pdf).
 - [X] ¿Es necesario usar X, C y R's en las estructuras de las tuplas?
@@ -59,6 +67,9 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Forma de exportar los resultados
 <br/>
 
-### Parte 2
+### Parte 2 - Dudas
+
+- [ ] ¿El formato de los test debe ser las soluciones anteriores, con el num total y las aleatorias?
+- [ ] Si un alumno tiene delante un conflictivo y encima este tiene menor id, ¿se multiplica x4?
 - [ ] 
 <br/><br/>

@@ -1,4 +1,6 @@
+# Visual studio
 ./.vscode
+# Virtual environments
 venv/
 # Pycache
 __pycache__/
