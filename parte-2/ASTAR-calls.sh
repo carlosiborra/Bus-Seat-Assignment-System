@@ -1,6 +1,5 @@
 #!/bin/sh
 # ? Forma inicial de ejecutar el sh: $ sh ./parte-1/CSP-calls.sh
-# python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos00
-python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos08
-# python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos01
-# python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos02
+# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos.prob 1
+# orden: rel_path ASTARColaBus.py - rel_path alumnos.prob - ID de la heuristica
+python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos00.prob 1
