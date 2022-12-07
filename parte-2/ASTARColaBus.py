@@ -175,21 +175,9 @@ def a_estrella(estado_inicial, cola_total):
 
 # La función a_estrella se llama desde el main
 def main():
-    """ Función principal del programa """
-    # Obtenemos el path del fichero y la heurística a utilizar desde la consola
-    path = str(command_prompt()[0])
-    heuristica_sel = str(command_prompt()[1])
-    # Obtenemos la cola total del fichero al que apunta el path
-    cola_total = parse_result(path)
-    print(cola_total)
-    print("\nCREANDO ESTADO INICIAL")
-    # Estado: (padre, cola_bus, cola_total, heuristica_seleccionada)
-    # Creamos el estado inicial
-    estado_inicial = Estado(None, [], cola_total, heuristica_sel)
-    # Llamamos a la función a_estrella y le pasamos el estado inicial y la cola total
-    a_estrella(estado_inicial, cola_total)
+    """Función principal del programa"""
 
-
-if __name__ == '__main__':
-    # Llamamos a la función principal
-    main()
+    # Inicialización
+    estado_inicial = open_list[0]
+    nodo_inicial = Nodo(0, estado_inicial, None, heuristica(estado_inicial))
+    open_list.append(nodo_inicial)
