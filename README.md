@@ -52,8 +52,8 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Añadir las funciones externas necesarias para que funcione A*
 - [X] Añadir cola_total sacado del resultado de la parte 1
 - [ ] Crear heuríticas nuevas, más eficientes; estaría bien que fueran mínimo 3
-- [ ] Exportar el resultado de la parte 2
-  - [ ] Estadísticas
+- [X] Exportar el resultado de la parte 2
+  - [X] Estadísticas
   - [X] Resultados
 - [ ] Crear más test y comprobar la heurística 1
 - [ ] Comentar mejor el A*
@@ -80,4 +80,4 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] ¿El formato de los test debe ser las soluciones anteriores, con el num total y las aleatorias?
 - [X] Si un alumno tiene delante un conflictivo y encima este tiene menor id, ¿se multiplica x4?
 - [ ] Se coge como archivo test un predet. o uno de la parte 1?
-`<br/><br/>`
+  `<br/><br/>`

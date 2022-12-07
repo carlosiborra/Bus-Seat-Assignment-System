@@ -12,7 +12,7 @@ from readParse import parse_result
 from costeG import coste
 from constraint import mov_reducida_final, mov_reducida_seguidos
 from heuristicas import select_heuristic
-from writeResult import write_solution
+from writeResult import write_solution, write_statistics
 
 
 # ? Antes de nada, obtenemos el argumento (path) pasado por consola
@@ -152,6 +152,7 @@ def a_estrella(estado_inicial, cola_total):
     if goal:
         print("\nRESULTADOS:")
         output = estado_actual.cola_bus
+        estadisticas = [] 
         coste_ruta = 0
         ruta_seguida = []
         while estado_actual.padre is not None:
@@ -160,13 +161,17 @@ def a_estrella(estado_inicial, cola_total):
             estado_actual = estado_actual.padre
         # Calculamos el tiempo que ha tardado el algoritmo
         tiempo_total = time.time() - start_time
+        estadisticas.append(tiempo_total)
         print("Tiempo total:", tiempo_total)
         # Coste total de la ruta encontrada
         # Coste total = sumatorio de todos los costes f de los estados seguidos de la ruta
+        estadisticas.append(coste_ruta)
         print("Coste Total:", coste_ruta)
         # Nodos generados
+        estadisticas.append(nodes_gen)
         print("Longitud del plan:", nodes_gen)
         # Nodos expandidos
+        estadisticas.append(len(closed_list))
         print("Nodos expandidos:", len(closed_list))
         # Imprimimos el plan (ruta seguida), orden inverso, de padre a hijo
         print("Ruta seguida:")
@@ -176,6 +181,7 @@ def a_estrella(estado_inicial, cola_total):
         # ! Exportamos la solución a un fichero
         write_solution(output, cola_total, str(command_prompt()[0]))
         # ! Exportamos las estadísticas a un fichero
+        write_statistics(estadisticas, str(command_prompt()[0]))
 
     else:
         print("Solución no encontrada")

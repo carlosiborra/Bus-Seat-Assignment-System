@@ -15,3 +15,16 @@ def write_solution(input_dict: dict, output_dict: dict, path):
         file.write(f'INICIAL: {in_dict}\nFINAL: {out_dict}')
         print("\nSOLUCIÓN AL PROBLEMA:")
         print(f'INICIAL: {in_dict}\nFINAL: {out_dict}')
+
+
+def write_statistics(input_dict: list, path):
+    """ Función que escribe los las estadísticas en un archivo de texto """
+    # Quitamos la extensión del path (.prob) y le añadimos la extensión .stat
+    # Abrimos el archivo de texto
+    with open(path[:-5] + '.stat', 'w', encoding='UTF8') as file:
+        # Escribimos los resultados
+        print("\nESTADÍTICAS DE LA EJECUCIÓN:")
+        file.write(f'Tiempo total: {input_dict[0]}\nCoste Total: {input_dict[1]}\
+                   \nLongitud del plan: {input_dict[2]}\nNodos expandidos: {input_dict[3]}')
+        print(f'Tiempo total: {input_dict[0]}\nCoste Total: {input_dict[1]}\
+                   \nLongitud del plan: {input_dict[2]}\nNodos expandidos: {input_dict[3]}')
