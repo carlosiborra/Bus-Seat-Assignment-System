@@ -39,6 +39,20 @@ def parse_list(dictionary: dict) -> list:
         result_list.append([key, value])
     return result_list
 
+def parse_dict(input_list: list) -> dict:
+    """ Parsea la lista a un diccionario """
+    # La lista tiene el formato: [[key, value], [key, value], [key, value], [key, value]]
+    # Se parsea a diccionario con el formato: {'4XR': 2, '3XR': 16, '2XR': 18, '1XR': 20}
+    # Se crea un diccionario vacío
+    result_dict = {}
+    # Se recorre la lista
+    for i in input_list:
+        # Se añade al diccionario
+        result_dict[i[0]] = i[1]
+    return result_dict
+
+
+
 # ! Infile test
 # path = 'ASTAR-tests\\alumnos00.prob'
 # print(parse_result(path))

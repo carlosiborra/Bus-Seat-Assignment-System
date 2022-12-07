@@ -53,7 +53,10 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Añadir cola_total sacado del resultado de la parte 1
 - [ ] Crear heuríticas nuevas, más eficientes; estaría bien que fueran mínimo 3
 - [ ] Exportar el resultado de la parte 2
+  - [ ] Estadísticas
+  - [X] Resultados
 - [ ] Crear más test y comprobar la heurística 1
+- [ ] Comentar mejor el A*
   `<br/><br/>`
 
 ## Dudas a responder

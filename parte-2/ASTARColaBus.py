@@ -12,6 +12,7 @@ from readParse import parse_result
 from costeG import coste
 from constraint import mov_reducida_final, mov_reducida_seguidos
 from heuristicas import select_heuristic
+from writeResult import write_solution
 
 
 # ? Antes de nada, obtenemos el argumento (path) pasado por consola
@@ -89,20 +90,21 @@ def esta_en_lista(estado, lista) -> bool:
         else:
             return False
 
+
 # ! -------------------------------------------------------------------
 # ! AGORITMO A*
 # ! -------------------------------------------------------------------
 def a_estrella(estado_inicial, cola_total):
     """ Función que implementa el algoritmo A* """
-    # Empezamos a contar el tiempo
+    # ! Iniciamos el conómetro
     start_time = time.time()
-    ####  variables iniciales  ####
-    nodes_gen = 1                   # Número de nodos generados
-    print("Estado inicial:", estado_inicial.cola_bus)
+    # ! Inicializamos las variables
+    nodes_gen = 1  # Número de nodos generados
     # Metemos en la lista abierta el estado inicial
-    open_list = [estado_inicial]    # Lista abierta con los nodos a expandir
-    closed_list = []                # Lista de nodos espandidos
-    goal = False                    # Variable que indica si se ha llegado al estado meta
+    print("Estado inicial:", estado_inicial.cola_bus)
+    open_list = [estado_inicial]  # Lista abierta con los nodos a expandir
+    closed_list = []  # Lista de nodos espandidos
+    goal = False  # Variable que indica si se ha llegado al estado meta
 
     ####  bucle de ejecución de A*  ####
     while (not goal or len(open_list) >= 0):
@@ -149,14 +151,16 @@ def a_estrella(estado_inicial, cola_total):
     # ! Si se ha llegado al estado meta, se imprimen los resultados
     if goal:
         print("\nRESULTADOS:")
+        output = estado_actual.cola_bus
         coste_ruta = 0
-        ruta_seguida = []  # ! O recorriendo el árbol del padre al revés
+        ruta_seguida = []
         while estado_actual.padre is not None:
             ruta_seguida.append(estado_actual.cola_bus[-1][0])
             coste_ruta += estado_actual.coste_f
             estado_actual = estado_actual.padre
         # Calculamos el tiempo que ha tardado el algoritmo
-        print("Tiempo total:", time.time() - start_time)
+        tiempo_total = time.time() - start_time
+        print("Tiempo total:", tiempo_total)
         # Coste total de la ruta encontrada
         # Coste total = sumatorio de todos los costes f de los estados seguidos de la ruta
         print("Coste Total:", coste_ruta)
@@ -164,11 +168,15 @@ def a_estrella(estado_inicial, cola_total):
         print("Longitud del plan:", nodes_gen)
         # Nodos expandidos
         print("Nodos expandidos:", len(closed_list))
-        # Imprimimos el plan (ruta seguida)
+        # Imprimimos el plan (ruta seguida), orden inverso, de padre a hijo
         print("Ruta seguida:")
-        # ? Imprimimos la ruta seguida (orden inverso)
         for i in ruta_seguida:
             print(i)
+
+        # ! Exportamos la solución a un fichero
+        write_solution(output, cola_total, str(command_prompt()[0]))
+        # ! Exportamos las estadísticas a un fichero
+
     else:
         print("Solución no encontrada")
 
