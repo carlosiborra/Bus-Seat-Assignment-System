@@ -13,6 +13,7 @@ from costeG import coste
 from constraint import mov_reducida_final, mov_reducida_seguidos
 from heuristicas import select_heuristic
 from writeResult import write_solution, write_statistics
+from comprobaciones import comprobar_estado
 
 
 # ? Antes de nada, obtenemos el argumento (path) pasado por consola
@@ -30,7 +31,7 @@ def command_prompt():
 class Estado():
     """ Clase de los nodos para el algoritmo A* """
 
-    def __init__(self, padre=None, cola_bus: list = [], cola_total: list = [], heuristica: int = 1):
+    def __init__(self, padre: object, cola_bus: list, cola_total: list, heuristica: int):
         """ Constructor de la clase nod """
         print("\nCREACIÓN ESTADO:")
         self.padre = padre
@@ -47,9 +48,15 @@ class Estado():
         self.coste_f = self.coste_g + self.coste_h  # f(n) = g(n) + h(n)
         print("Coste f(n):", self.coste_f)
 
-    def __eq__(self, other):
-        """ Función que compara dos nodos """
-        return self.cola_restante == other.cola_restante
+    def __eq__(self, estado):
+        """ Función que compara si dos estados son iguales """
+        # Dos estados son iguales si la cola bus se compone de los mismos alumnos
+        # y además, el último alumno de la cola del bus es el mismo
+        if sorted(self.cola_bus) == sorted(estado.cola_bus):
+            if self.cola_bus[-1] == estado.cola_bus[-1]:
+                return True
+                # Ejemplo, f([4XX, 1XX, 2XR]) = f([1XX, 4XX, 2XR]) = 5, se descarta 1
+        return False
 
 
 def restantes(cola_bus, cola_total) -> list:
@@ -62,12 +69,13 @@ def restantes(cola_bus, cola_total) -> list:
 def is_goal(estado) -> bool:
     """Función que determina si un estado es meta en base a la heurística"""
     if (estado.coste_h == 0):
+        print("\nESTADO META, coste heurístico es 0:", estado.cola_bus)
         return True
     else:
         return False
 
 
-def expandir(estado, cola_total) -> list:
+def expandir(estado, cola_total, heuristica_sel: int) -> list:
     """ Función que consigue los estados posibles de expansión en base a un estado """
     if len(estado.cola_bus) > 1 and (mov_reducida_seguidos(estado.cola_bus) or mov_reducida_final(estado.cola_bus, len(estado.cola_restante))):
         print('ERROR: Movilidad reducida seguida o al final')
@@ -77,24 +85,24 @@ def expandir(estado, cola_total) -> list:
         for elem in estado.cola_restante:
             cola_nueva = estado.cola_bus + [elem]
             nuevo_estado = Estado(estado, cola_nueva,
-                                  restantes(cola_nueva, cola_total))
+                                  restantes(cola_nueva, cola_total), heuristica_sel)
             hijos.append(nuevo_estado)
         return hijos
 
 
-def esta_en_lista(estado, lista) -> bool:
-    """Función que determina si un estado está en la lista determinada"""
-    for state in lista:
-        if estado == state:
+def esta_en_lista(estado1, lista) -> bool:
+    """Función que determina si un estado1 está en la lista determinada"""
+    for estado2 in lista:
+        if estado1 == estado2:
             return True
         else:
             return False
 
 
 # ! -------------------------------------------------------------------
-# ! AGORITMO A*
+# ! ALGORITMO A*
 # ! -------------------------------------------------------------------
-def a_estrella(estado_inicial, cola_total):
+def a_estrella(estado_inicial, cola_total, heuristica_sel):
     """ Función que implementa el algoritmo A* """
     # ! Iniciamos el conómetro
     start_time = time.time()
@@ -102,84 +110,129 @@ def a_estrella(estado_inicial, cola_total):
     nodes_gen = 1  # Número de nodos generados
     # Metemos en la lista abierta el estado inicial
     print("Estado inicial:", estado_inicial.cola_bus)
-    open_list = [estado_inicial]  # Lista abierta con los nodos a expandir
-    closed_list = []  # Lista de nodos espandidos
+    open_list = []  # Lista abierta con los nodos a expandir
+    closed_list = []  # Lista de nodos expandidos
     goal = False  # Variable que indica si se ha llegado al estado meta
 
-    ####  bucle de ejecución de A*  ####
+    # Añadimos el estado inicial a la lista abierta
+    open_list.append(estado_inicial)
+
+    # ! Bucle de ejecución de A*
     while (not goal or len(open_list) >= 0):
         # print("Lista abierta:", open_list)
         # print("Lista cerrada:", closed_list)
-        estado_actual = open_list.pop()
-        print("Estado actual:", estado_actual.cola_bus)
+        estado_actual = open_list.pop(0)
+        print(
+            f'Estado actual: {estado_actual.cola_bus}, {estado_actual.coste_h}')
+
+        # ! Comprobamos si el estado actual es meta
         if is_goal(estado_actual):
+            # ! Añadimos el estado meta a la lista cerrada
+            closed_list.append(estado_actual)
+            # ! Además, se para el cronómetro -> tiempo que ha tardado el algoritmo
+            tiempo_total = time.time() - start_time
+            # ! Se llega al estado meta
             goal = True
             break
+
+        # ! Si no es meta, se expande
         else:
-            hijos = expandir(estado_actual, cola_total)
+            hijos = expandir(estado_actual, cola_total, heuristica_sel)
             if not hijos:
                 continue
             else:
                 closed_list.append(estado_actual)
-                # Se compara por todos los hijos
-                for elem in hijos:
-                    if not esta_en_lista(elem, closed_list):
-                        if not esta_en_lista(elem, open_list):
-                            open_list.append(elem)
-                            nodes_gen += 1
+                # Se añaden los hijos a la lista abierta
+                # Primero, comprobamos si están en la lista cerrada
+                for state1 in hijos:
+                    # Se recorren los hijos del estado actual
+                    # Comprobamos si está en la lista cerrada -> Se descarta
+                    if not esta_en_lista(state1, closed_list):
+                        # No está en la lista cerrada
+                        # Comprobamos si está en la lista abierta
+                        if not esta_en_lista(state1, open_list):
+                            # Si no está en la lista abierta, se mete
+                            open_list.append(state1)
                         else:
-                            op_l_cpy = open_list.copy()
-                            for elem2 in op_l_cpy:
-                                if elem2 == elem:
-                                    if elem2.coste_f > elem.coste_f:
-                                        open_list.remove(elem2)
-                                        open_list.append(elem)
-                                        nodes_gen += 1
+                            # Si está en la lista abierta, comprobamos si el coste f es menor
+                            open_list_copy = open_list.copy()
+                            # Comprobamos si el estado nuevo es mejor que el anterior
+                            for state2 in open_list_copy:
+                                if state1 == state2:
+                                    if state1.coste_f < state2.coste_f:
+                                        print("Se ha encontrado un estado mejor")
+                                        print("Estado anterior:", state2.cola_bus,
+                                              "estado nuevo:", state1.cola_bus)
+                                        state2 = state1
+                                        # Eliminamos el estado anterior de la lista abierta
+                                        open_list.remove(state2)
+                                        open_list.append(state1)
+                                    else:
+                                        continue
                                 else:
                                     continue
                     else:
                         continue
 
         # ! Ordenamos la lista abierta por coste f e imprimimos
-        # TODO: ¿Porque cuando se pone reverse Trie cambia tanto? de 11 a 34
-        open_list.sort(key=lambda x: x.coste_f, reverse=False)
+        # ! En caso de que haya empate, se ordena por coste h
+        open_list.sort(key=lambda x: (x.coste_f, x.coste_h))
         # ! Imprimimos los costest f de los nodos de la lista abierta
-        print("\nCOSTES F:")
-        print("Costes f de la lista abierta:", [
-              elem.coste_f for elem in open_list])
+        print("\nCOSTES F tras ORDENACIÓN:")
+        print(
+            f'Costes f de la lista abierta: \n{[elem.coste_f for elem in open_list]}')
+        # # ! Imprimimos la lista abierta (solo cola de bus)
+        # print("\nLISTA ABIERTA:")
+        # print([elem.cola_bus for elem in open_list])
+        # # ! Imprimimos la lista cerrada (solo cola de bus)
+        # print("\nLISTA CERRADA:")
+        # print([elem.cola_bus for elem in closed_list])
 
     # ! Si se ha llegado al estado meta, se imprimen los resultados
+
+    # ! Imprimimos la lista abierta (solo cola de bus)
+    print("\nLISTA ABIERTA:")
+    print([elem.cola_bus for elem in open_list])
+    # ! Imprimimos la lista cerrada (solo cola de bus)
+    print("\nLISTA CERRADA:")
+    print([elem.cola_bus for elem in closed_list])
+
+    # ! SE HA LLEGADO AL ESTADO META
     if goal:
         print("\nRESULTADOS:")
+        
+        # ! Antes de nada, podemos comprobar si el resultado y coste es admisible
+        print(comprobar_estado(estado_actual))
+        
         output = estado_actual.cola_bus
-        estadisticas = [] 
+        estadisticas, ruta_seguida = [], []
         coste_ruta = 0
         ruta_seguida = []
         while estado_actual.padre is not None:
             ruta_seguida.append(estado_actual.cola_bus[-1][0])
             coste_ruta += estado_actual.coste_f
             estado_actual = estado_actual.padre
-        # Calculamos el tiempo que ha tardado el algoritmo
-        tiempo_total = time.time() - start_time
+
+        # ! Obtención de las estadísticas
+        # Tiempo total
         estadisticas.append(tiempo_total)
         print("Tiempo total:", tiempo_total)
         # Coste total de la ruta encontrada
         # Coste total = sumatorio de todos los costes f de los estados seguidos de la ruta
         estadisticas.append(coste_ruta)
         print("Coste Total:", coste_ruta)
-        # Nodos generados
-        estadisticas.append(nodes_gen)
+        # Nodos generados -> nodos en la lista abierta + nodos en la lista cerrada
+        estadisticas.append(len(open_list) + len(closed_list))
         print("Longitud del plan:", nodes_gen)
         # Nodos expandidos
         estadisticas.append(len(closed_list))
         print("Nodos expandidos:", len(closed_list))
         # Imprimimos el plan (ruta seguida), orden inverso, de padre a hijo
-        print("Ruta seguida:")
-        for i in ruta_seguida:
-            print(i)
+        print("Distribución seguida:")
+        print(ruta_seguida[::-1])
 
         # ! Exportamos la solución a un fichero
-        write_solution(output, cola_total, str(command_prompt()[0]))
+        write_solution(cola_total, output, str(command_prompt()[0]))
         # ! Exportamos las estadísticas a un fichero
         write_statistics(estadisticas, str(command_prompt()[0]))
 
@@ -192,16 +245,17 @@ def main():
     """ Función principal del programa """
     # Obtenemos el path del fichero y la heurística a utilizar desde la consola
     path = str(command_prompt()[0])
-    heuristica_sel = str(command_prompt()[1])
+    heuristica_sel = int(command_prompt()[1])
+    print('heuristica_sel', heuristica_sel)
     # Obtenemos la cola total del fichero al que apunta el path
     cola_total = parse_result(path)
     print(cola_total)
-    print("\nCREANDO ESTADO INICIAL")
+    print("\nCREANDO ESTADO INICIAL...")
     # Estado: (padre, cola_bus, cola_total, heuristica_seleccionada)
     # Creamos el estado inicial
     estado_inicial = Estado(None, [], cola_total, heuristica_sel)
     # Llamamos a la función a_estrella y le pasamos el estado inicial y la cola total
-    a_estrella(estado_inicial, cola_total)
+    a_estrella(estado_inicial, cola_total, heuristica_sel)
 
 
 if __name__ == '__main__':

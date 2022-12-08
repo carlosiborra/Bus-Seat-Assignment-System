@@ -11,7 +11,7 @@ def mov_reducida_final(cola_bus, len_restantes) -> bool:
     # Comprobamos si el último alumno de la lista es con movilidad reducida
     # Si el alumno es el ultimo de la lista abierta, False
     print(cola_bus[-1][0])
-    if re.match(r'\d\wR', cola_bus[-1][0]) and len_restantes == 0:
+    if re.match(r'\d*\wR', cola_bus[-1][0]) and len_restantes == 0:
         print('Movilidad reducida final')
         return True
     return False
@@ -22,7 +22,7 @@ def mov_reducida_seguidos(cola_bus) -> bool:
     """ Función que devuelve una lista con los alumnos con movilidad reducida """
     # Comprobamos si el último alumno de la lista es con movilidad reducida
     # Lo comprobamos mediante el uso de expresiones regulares
-    if re.match(r'\d\wR', cola_bus[-1][0]) and re.match(r'\d\wR', cola_bus[-2][0]):
+    if re.match(r'\d*\wR', cola_bus[-1][0]) and re.match(r'\d\wR', cola_bus[-2][0]):
         return True
     return False
 

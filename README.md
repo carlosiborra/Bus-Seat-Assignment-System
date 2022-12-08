@@ -52,11 +52,15 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Añadir las funciones externas necesarias para que funcione A*
 - [X] Añadir cola_total sacado del resultado de la parte 1
 - [ ] Crear heuríticas nuevas, más eficientes; estaría bien que fueran mínimo 3
+  - [X] Crear heurística 1
+  - [X] Crear heurística 2
+  - [ ] Crear heurística 3
 - [X] Exportar el resultado de la parte 2
   - [X] Estadísticas
   - [X] Resultados
-- [ ] Crear más test y comprobar la heurística 1
-- [ ] Comentar mejor el A*
+- [ ] Crear más test
+- [X] Automatizar la comprobación de la validez de las soluciones, costes y heurísticas
+- [X] Comentar mejor el A*
   `<br/><br/>`
 
 ## Dudas a responder
