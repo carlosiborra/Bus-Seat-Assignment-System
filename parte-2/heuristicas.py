@@ -34,6 +34,7 @@ def heuristica2(cola_restante) -> callable:
             reducida += 1
         else:
             normales += 1
+    # TODO: lo mismo se puede poner el coste de C como 0.9
     coste = 0.5*conflictivos + 2*reducida + normales
     print(
         f'Conflictivos: {conflictivos}, Reducida: {reducida},  Normales: {normales}, Coste: {coste}')
@@ -41,5 +42,7 @@ def heuristica2(cola_restante) -> callable:
 
 
 def heuristica3(cola_restante) -> callable:
-    """ Función heurística que devuelve el número de alumnos que quedan por subir al autobús """
-    return len(cola_restante)
+    """ Función heurística que devuelve 1 para forzar fuerza bruta y por tanto aplicar Dijkstra """
+    if cola_restante == []:
+        return 0
+    return 1

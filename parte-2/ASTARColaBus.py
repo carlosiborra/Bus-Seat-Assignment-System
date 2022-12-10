@@ -107,7 +107,6 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
     # ! Iniciamos el conómetro
     start_time = time.time()
     # ! Inicializamos las variables
-    nodes_gen = 1  # Número de nodos generados
     # Metemos en la lista abierta el estado inicial
     print("Estado inicial:", estado_inicial.cola_bus)
     open_list = []  # Lista abierta con los nodos a expandir
@@ -200,17 +199,23 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
     # ! SE HA LLEGADO AL ESTADO META
     if goal:
         print("\nRESULTADOS:")
-        
+
         # ! Antes de nada, podemos comprobar si el resultado y coste es admisible
         print(comprobar_estado(estado_actual))
-        
+
         output = estado_actual.cola_bus
         estadisticas, ruta_seguida = [], []
         coste_ruta = 0
         ruta_seguida = []
-        while estado_actual.padre is not None:
-            ruta_seguida.append(estado_actual.cola_bus[-1][0])
+        i = True
+        while i:
+            if estado_actual.padre is None:
+                ruta_seguida.append(None)
+            else:
+                ruta_seguida.append(estado_actual.cola_bus[-1][0])
             coste_ruta += estado_actual.coste_f
+            if estado_actual.padre is None:
+                i = False
             estado_actual = estado_actual.padre
 
         # ! Obtención de las estadísticas
@@ -222,8 +227,9 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
         estadisticas.append(coste_ruta)
         print("Coste Total:", coste_ruta)
         # Nodos generados -> nodos en la lista abierta + nodos en la lista cerrada
-        estadisticas.append(len(open_list) + len(closed_list))
-        print("Longitud del plan:", nodes_gen)
+        long_plan = len(open_list) + len(closed_list)
+        estadisticas.append(long_plan)
+        print("Longitud del plan:", long_plan)
         # Nodos expandidos
         estadisticas.append(len(closed_list))
         print("Nodos expandidos:", len(closed_list))
