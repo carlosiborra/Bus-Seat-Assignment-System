@@ -50,12 +50,9 @@ class Estado():
 
     def __eq__(self, estado):
         """ Función que compara si dos estados son iguales """
-        # Dos estados son iguales si la cola bus se compone de los mismos alumnos
-        # y además, el último alumno de la cola del bus es el mismo
-        if sorted(self.cola_bus) == sorted(estado.cola_bus):
-            if self.cola_bus[-1] == estado.cola_bus[-1]:
-                return True
-                # Ejemplo, f([4XX, 1XX, 2XR]) = f([1XX, 4XX, 2XR]) = 5, se descarta 1
+        # Dos estados son iguales si la cola bus son iguales
+        if self.cola_bus == estado.cola_bus:
+            return True
         return False
 
 
@@ -202,10 +199,9 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
 
         # ! Antes de nada, podemos comprobar si el resultado y coste es admisible
         print(comprobar_estado(estado_actual))
-
+        coste_total = estado_actual.coste_f
         output = estado_actual.cola_bus
         estadisticas, ruta_seguida = [], []
-        coste_ruta = 0
         ruta_seguida = []
         i = True
         while i:
@@ -213,7 +209,6 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
                 ruta_seguida.append(None)
             else:
                 ruta_seguida.append(estado_actual.cola_bus[-1][0])
-            coste_ruta += estado_actual.coste_f
             if estado_actual.padre is None:
                 i = False
             estado_actual = estado_actual.padre
@@ -224,8 +219,8 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
         print("Tiempo total:", tiempo_total)
         # Coste total de la ruta encontrada
         # Coste total = sumatorio de todos los costes f de los estados seguidos de la ruta
-        estadisticas.append(coste_ruta)
-        print("Coste Total:", coste_ruta)
+        estadisticas.append(coste_total)
+        print("Coste Total:", coste_total)
         # Nodos generados -> nodos en la lista abierta + nodos en la lista cerrada
         long_plan = len(open_list) + len(closed_list)
         estadisticas.append(long_plan)
