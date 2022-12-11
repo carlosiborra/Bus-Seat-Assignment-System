@@ -215,8 +215,8 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
         # Tiempo total
         estadisticas.append(tiempo_total)
         print("Tiempo total:", tiempo_total)
-        # Coste total de la ruta encontrada
-        # Coste total = sumatorio de todos los costes f de los estados seguidos de la ruta
+        # Coste total de la ruta encontrada es el coste f del estado meta
+        # sería lo mismo que el coste g ya que no hay coste h en el estado meta
         estadisticas.append(coste_total)
         print("Coste Total:", coste_total)
         # Nodos generados -> nodos en la lista abierta + nodos en la lista cerrada
