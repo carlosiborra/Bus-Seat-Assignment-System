@@ -65,11 +65,10 @@ def restantes(cola_bus, cola_total) -> list:
 
 def is_goal(estado) -> bool:
     """Función que determina si un estado es meta en base a la heurística"""
-    if (estado.coste_h == 0):
+    if estado.coste_h == 0:
         print("\nESTADO META, coste heurístico es 0:", estado.cola_bus)
         return True
-    else:
-        return False
+    return False
 
 
 def expandir(estado, cola_total, heuristica_sel: int) -> list:
@@ -92,8 +91,7 @@ def esta_en_lista(estado1, lista) -> bool:
     for estado2 in lista:
         if estado1 == estado2:
             return True
-        else:
-            return False
+        return False
 
 
 # ! -------------------------------------------------------------------
