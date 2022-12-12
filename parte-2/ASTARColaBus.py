@@ -89,7 +89,7 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
     start_time = time.time()
     # ! Inicializamos las variables
     # Metemos en la lista abierta el estado inicial
-    print("Estado inicial:", estado_inicial.cola_bus)
+    print("\nEstado inicial:", estado_inicial.cola_bus)
     open_list = []  # Lista abierta con los nodos a expandir
     closed_list = []  # Lista de nodos expandidos
     goal = False  # Variable que indica si se ha llegado al estado meta
@@ -236,7 +236,7 @@ def main():
     cola_total = parse_result(path)
     print('\n----------------------------------------')
     print('\nCREANDO ESTADO INICIAL...')
-    print(f'Heurística seleccionada: {heuristica_sel}\n{cola_total}')
+    print(f'Heurística seleccionada: {heuristica_sel}')
     # Creamos el estado inicial
     estado_inicial = Estado(None, [], cola_total, heuristica_sel)
     # Llamamos a la función a_estrella y le pasamos el estado inicial y la cola total
