@@ -34,20 +34,17 @@ class Estado():
 
     def __init__(self, padre: object, cola_bus: list, cola_total: list, heuristica: int):
         """ Constructor de la clase nod """
-        print("\nCREACIÓN ESTADO:")
         self.padre = padre
         self.cola_bus = cola_bus
-        print("Cola del bus:", self.cola_bus)
+        print(f'\n    SE CREA ESTADO HIJO con cola del bus: {self.cola_bus}')
         self.cola_restante = restantes(self.cola_bus, cola_total)
-        print("Alumnos restantes:", self.cola_restante)
+        print("        Alumnos restantes:", self.cola_restante)
         # Calulamos los costes
-        print("\nCOSTES DEL ESTADO:")
         self.coste_g = coste(self.cola_bus)
-        print("Coste g(n):", self.coste_g)
         self.coste_h = select_heuristic(heuristica, self.cola_restante)
-        print("Coste h(n):", self.coste_h)
         self.coste_f = self.coste_g + self.coste_h  # f(n) = g(n) + h(n)
-        print("Coste f(n):", self.coste_f)
+        print(
+            f"        Costes del estado hijo: coste g(n): {self.coste_g}, coste h(n): {self.coste_h}, coste f(n): {self.coste_f}")
 
     def __eq__(self, estado):
         """ Función que compara si dos estados son iguales """
@@ -61,15 +58,24 @@ def expandir(estado, cola_total, heuristica_sel: int) -> list:
     """ Función que consigue los estados posibles de expansión en base a un estado """
     hijos = []
     for elem in estado.cola_restante:
-        if mov_reducida_seguidos(estado.cola_bus + [elem]) or \
-                mov_reducida_final(estado.cola_bus + [elem], estado.cola_restante):
+        if mov_reducida_final(estado.cola_bus + [elem], estado.cola_restante):
+            print(
+                f'\n    NO SE CREA ESTADO HIJO con cola del bus: {estado.cola_bus + [elem]}')
+            print('        ERROR: movilidad reducida final:')
             continue
+
+        elif mov_reducida_seguidos(estado.cola_bus + [elem]):
+            print(
+                f'\n    NO SE CREA ESTADO HIJO con cola del bus: {estado.cola_bus + [elem]}')
+            print('        ERROR: movilidad reducida seguidos:')
+            continue
+
         cola_nueva = estado.cola_bus + [elem]
         nuevo_estado = Estado(estado, cola_nueva,
                               restantes(cola_nueva, cola_total), heuristica_sel)
         hijos.append(nuevo_estado)
     if not hijos:
-        print('ERROR: No se han añadido hijos a este estado')
+        print('\n    NOTA: este estado no tenía hijos válidos')
         return False
     return hijos
 
@@ -97,12 +103,10 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
         # print("Lista cerrada:", closed_list)
         estado_actual = open_list.pop(0)
         print(
-            f'Estado actual: {estado_actual.cola_bus}, {estado_actual.coste_h}')
+            f'\nESTADO SELECCIONADO: {estado_actual.cola_bus}, {estado_actual.coste_f}')
         # ! Comprobamos si el estado actual es meta
         if is_goal(estado_actual):
             print(goal)
-            # ! Añadimos el estado meta a la lista cerrada
-            closed_list.append(estado_actual)
             # ! Además, se para el cronómetro -> tiempo que ha tardado el algoritmo
             tiempo_total = time.time() - start_time
             # ! Se llega al estado meta
@@ -110,11 +114,13 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
 
         # ! Si no es meta, se expande
         else:
+            # ! Metemos el estado actual en la lista cerrada
+            closed_list.append(estado_actual)
+
             hijos = expandir(estado_actual, cola_total, heuristica_sel)
             if not hijos:
                 continue
             else:
-                closed_list.append(estado_actual)
                 # Se añaden los hijos a la lista abierta
                 # Primero, comprobamos si están en la lista cerrada
                 for state1 in hijos:
@@ -149,16 +155,17 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
 
         # ! Ordenamos la lista abierta por coste f e imprimimos
         # ! En caso de que haya empate, se ordena por coste h
-        if len(open_list) > 0:
+        if open_list:
             open_list.sort(key=lambda x: (x.coste_f, x.coste_h))
-        # ! Imprimimos los costes f de los nodos de la lista abierta
-        # print("\nCOSTES F tras ORDENACIÓN:")
-        # print(
-        #     f'Costes f de la lista abierta: \n{[elem.coste_f for elem in open_list]}')
+            # ! Imprimimos los costes f de los nodos de la lista abierta
+            # print("\nCOSTES F tras ORDENACIÓN:")
+            # print(
+            #     f'Costes f de la lista abierta: \n{[elem.coste_f for elem in open_list]}')
 
     # ! Si se ha llegado al estado meta, se imprimen los resultados
 
     # ! Imprimimos la lista abierta (solo cola de bus)
+    print('\n\nTERMINADA LA EJECUCIÓN DEL ALGORITMO')
     print("\nLISTA ABIERTA:")
     print([elem.cola_bus for elem in open_list])
     # ! Imprimimos la lista cerrada (solo cola de bus)
@@ -206,14 +213,16 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
         print(ruta_seguida[::-1])
 
         # ! Exportamos la solución a un fichero
-        write_solution(heuristica_sel, cola_total, output, str(command_prompt()[0]))
+        write_solution(heuristica_sel, cola_total,
+                       output, str(command_prompt()[0]))
         # ! Exportamos las estadísticas a un fichero
-        write_statistics(heuristica_sel, estadisticas, str(command_prompt()[0]))
+        write_statistics(heuristica_sel, estadisticas,
+                         str(command_prompt()[0]))
 
     # ! Si la lista abierta está vacía, se ha llegado al final sin encontrar una solución
     else:
         # len(open_list) == 0:
-        print("\nFRACASO, no se ha encontrado una solución\n")
+        print("\nFRACASO: no se ha encontrado una solución\n")
         return None
 
 
@@ -222,7 +231,7 @@ def main():
     """ Función principal del programa """
     # Obtenemos el path del fichero y la heurística a utilizar desde la consola
     path = str(command_prompt()[0])
-    heuristica_sel = int(command_prompt()[1])    
+    heuristica_sel = int(command_prompt()[1])
     # Obtenemos la cola total del fichero al que apunta el path
     cola_total = parse_result(path)
     print('\n----------------------------------------')
