@@ -10,7 +10,7 @@ import time
 # Otra función para parsear el resultado de la función anterior a una lista
 from readParse import parse_result
 from costeG import coste
-from constraint import mov_reducida_final, mov_reducida_seguidos
+from restricciones import mov_reducida_final, mov_reducida_seguidos
 from heuristicas import select_heuristic
 from writeResult import write_solution, write_statistics
 from comprobaciones import comprobar_estado
@@ -73,9 +73,9 @@ def is_goal(estado) -> bool:
 
 def expandir(estado, cola_total, heuristica_sel: int) -> list:
     """ Función que consigue los estados posibles de expansión en base a un estado """
-    if len(estado.cola_bus) > 1 and (mov_reducida_seguidos(estado.cola_bus) or mov_reducida_final(estado.cola_bus, len(estado.cola_restante))):
-        print('ERROR: Movilidad reducida seguida o al final')
-        return []  # No se han añadido hijos ya que no se puede seguir por esta rama
+    if mov_reducida_seguidos(estado.cola_bus) or mov_reducida_final(estado.cola_bus, len(estado.cola_restante)):
+        print('ERROR: No se pueden añadir más hijos a este estado')
+        return False  # No se han añadido hijos ya que no se puede seguir por esta rama
     else:
         hijos = []
         for elem in estado.cola_restante:
@@ -235,9 +235,11 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
         # ! Exportamos las estadísticas a un fichero
         write_statistics(estadisticas, str(command_prompt()[0]))
 
+    # ! Si la lista abierta está vacía, se ha llegado al final sin encontrar una solución
     else:
-        print("Solución no encontrada")
-
+        #len(open_list) == 0:
+        print("\nFRACASO, no se ha encontrado una solución")
+        return None    
 
 # La función a_estrella se llama desde el main
 def main():

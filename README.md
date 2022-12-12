@@ -85,4 +85,5 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Si un alumno tiene delante un conflictivo y encima este tiene menor id, ¿se multiplica x4?
 - [X] Se coge como archivo test un predet. o uno de la parte 1?
 - [X] Resto de dudas no formuladas ya resultas
+- [ ] Si no se encuentra solución, ¿se deben exportar las estadísticas?
   `<br/><br/>`
