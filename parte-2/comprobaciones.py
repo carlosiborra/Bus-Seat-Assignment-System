@@ -16,7 +16,7 @@ def comprobar_estado(estado):
         estado = estado.padre
 
     # Si f(n) != g(n) + h(n) no es admisible
-    if sum(coste_ruta_f) != sum(coste_ruta_g) + sum(coste_ruta_h):
+    if round(sum(coste_ruta_f),2) != round((sum(coste_ruta_g) + sum(coste_ruta_h)),2):
         return "ERROR: suma de costes no es correcta"
 
     # Si h(n) > h(n') no es admisible"

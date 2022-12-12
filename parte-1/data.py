@@ -4,11 +4,11 @@
 # ! Definición de las variables
 # Estructura de las variables:
 # ? alumno = [id, ciclo, conflictividad, movilidad, id_hermano]
-    # ? id = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ...] -> id del alumno
-    # ? ciclo = [1, 2] -> 1: 1º ciclo, 2: 2º ciclo
-    # ? conflictividad = [C, X] -> C: conflictivo, X: no conflictivo
-    # ? movilidad = [R,X] -> R: movilidad reducida, X: sin movilidad reducida
-    # ? id_hermano = [1, 2, 3, 4...] -> 0: no tiene hermano
+# ? id = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ...] -> id del alumno
+# ? ciclo = [1, 2] -> 1: 1º ciclo, 2: 2º ciclo
+# ? conflictividad = [C, X] -> C: conflictivo, X: no conflictivo
+# ? movilidad = [R,X] -> R: movilidad reducida, X: sin movilidad reducida
+# ? id_hermano = [1, 2, 3, 4...] -> 0: no tiene hermano
 
 # ! Estructura del tablero (autobús):
 # Nota: C=chofer, P=puerta, *=pasillo

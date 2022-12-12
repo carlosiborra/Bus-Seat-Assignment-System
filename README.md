@@ -42,7 +42,7 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Sacar 3 soluciones DISTINTAS y ALEATORIAS
 - [X] Crear el archivo .sh para ejecutar el código
 - [ ] Eliminar variables (listas) no usadas
-- [ ] Crear tests específicos, sobre 15, check boundaries !!
+- [ ] CREAR 15 TESTS ESPECÍFICOS, CHECK BOUNDARIES !!
 - [ ] SACAR TODO DE LA CARPETA CODE, REORDENAR !!
   `<br/>`
 
@@ -51,14 +51,14 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Eliminar duplicados
 - [X] Añadir las funciones externas necesarias para que funcione A*
 - [X] Añadir cola_total sacado del resultado de la parte 1
-- [ ] Crear heuríticas nuevas, más eficientes; estaría bien que fueran mínimo 3
+- [X] Crear heuríticas nuevas, más eficientes; estaría bien que fueran mínimo 3
   - [X] Crear heurística 1
   - [X] Crear heurística 2
-  - [ ] Crear heurística 3
+  - [X] Crear heurística 3
 - [X] Exportar el resultado de la parte 2
   - [X] Estadísticas
   - [X] Resultados
-- [ ] Crear más test
+- [ ] CREAR 15 TESTS ESPECÍFICOS, CHECK BOUNDARIES !!
 - [X] Automatizar la comprobación de la validez de las soluciones, costes y heurísticas
 - [X] Comentar mejor el A*
   `<br/><br/>`
@@ -83,5 +83,6 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 
 - [X] ¿El formato de los test debe ser las soluciones anteriores, con el num total y las aleatorias?
 - [X] Si un alumno tiene delante un conflictivo y encima este tiene menor id, ¿se multiplica x4?
-- [ ] Se coge como archivo test un predet. o uno de la parte 1?
+- [X] Se coge como archivo test un predet. o uno de la parte 1?
+- [X] Resto de dudas no formuladas ya resultas
   `<br/><br/>`

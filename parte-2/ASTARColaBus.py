@@ -172,9 +172,9 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
         # ! En caso de que haya empate, se ordena por coste h
         open_list.sort(key=lambda x: (x.coste_f, x.coste_h))
         # ! Imprimimos los costest f de los nodos de la lista abierta
-        print("\nCOSTES F tras ORDENACIÓN:")
-        print(
-            f'Costes f de la lista abierta: \n{[elem.coste_f for elem in open_list]}')
+        # print("\nCOSTES F tras ORDENACIÓN:")
+        # print(
+        #     f'Costes f de la lista abierta: \n{[elem.coste_f for elem in open_list]}')
         # # ! Imprimimos la lista abierta (solo cola de bus)
         # print("\nLISTA ABIERTA:")
         # print([elem.cola_bus for elem in open_list])
@@ -223,7 +223,7 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
         long_plan = len(open_list) + len(closed_list)
         estadisticas.append(long_plan)
         print("Longitud del plan:", long_plan)
-        # Nodos expandidos
+        # Nodos expandidos -> nodos lista cerrada
         estadisticas.append(len(closed_list))
         print("Nodos expandidos:", len(closed_list))
         # Imprimimos el plan (ruta seguida), orden inverso, de padre a hijo
