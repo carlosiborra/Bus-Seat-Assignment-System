@@ -61,13 +61,13 @@ def expandir(estado, cola_total, heuristica_sel: int) -> list:
         if mov_reducida_final(estado.cola_bus + [elem], estado.cola_restante):
             print(
                 f'\n    NO SE CREA ESTADO HIJO con cola del bus: {estado.cola_bus + [elem]}')
-            print('        ERROR: movilidad reducida final:')
+            print('        ERROR: movilidad reducida final')
             continue
 
         elif mov_reducida_seguidos(estado.cola_bus + [elem]):
             print(
                 f'\n    NO SE CREA ESTADO HIJO con cola del bus: {estado.cola_bus + [elem]}')
-            print('        ERROR: movilidad reducida seguidos:')
+            print('        ERROR: movilidad reducida seguidos')
             continue
 
         cola_nueva = estado.cola_bus + [elem]
