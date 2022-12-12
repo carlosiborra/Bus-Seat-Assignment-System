@@ -5,12 +5,15 @@ import re
 
 
 # ! Los alumnos con movilidad reducida tardan 3 veces más en subir al autobús
-def mov_reducida_final(cola_bus, len_restantes) -> bool:
+def mov_reducida_final(cola_bus, cola_restante) -> bool:
     """ Función que devuelve una lista con los alumnos con movilidad reducida """
     # Comprobamos si el último alumno de la lista es con movilidad reducida
-    # Si el alumno es el ultimo de la lista abierta, False
-    print("<sasdasd", cola_bus, len(cola_bus), len_restantes)
-    if len(cola_bus) > 0 and re.match(r'\d*\wR', cola_bus[-1][0]) and len_restantes == 0:
+
+    # Antes de nada debemos comprobar que la cola del bus no está vacía, si lo estuviese
+    # E intentamos meter uno de movilidad reducida, nos daría error, ya que sería
+    # el último y no habría ninguno
+    # Es importante recordar que la cola restante no está actualizada todavía, por ello == 1
+    if len(cola_bus) > 0 and re.match(r'\d*\wR', cola_bus[-1][0]) and len(cola_restante) == 1:
         print('Movilidad reducida final')
         return True
     return False
@@ -22,14 +25,15 @@ def mov_reducida_seguidos(cola_bus) -> bool:
     # Comprobamos si el último alumno de la lista es con movilidad reducida
     # Lo comprobamos mediante el uso de expresiones regulares
 
-    if len(cola_bus) > 1 and re.match(r'\d*\wR', cola_bus[-1][0]) and re.match(r'\d\wR', cola_bus[-2][0]):
+    if len(cola_bus) > 1 and re.match(r'\d*\wR', cola_bus[-1][0]) and \
+            re.match(r'\d\wR', cola_bus[-2][0]):
         print('Movilidad reducida seguidos')
         return True
     return False
 
 
 # ! Infile test
-# cola = [['4XX', 2], ['3XX', 21], ['2XR', 18], ['1XR', 20]]
-# open_list = [['5XX', 3]]
-# print(mov_reducida_final(cola, len(open_list)))
+# cola = []
+# open_list = [['5XR', 3]]
+# print(mov_reducida_final(cola, open_list))
 # print(mov_reducida_seguidos(cola))

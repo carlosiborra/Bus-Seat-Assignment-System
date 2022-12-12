@@ -14,6 +14,7 @@ from restricciones import mov_reducida_final, mov_reducida_seguidos
 from heuristicas import select_heuristic
 from writeResult import write_solution, write_statistics
 from comprobaciones import comprobar_estado
+from utils import esta_en_lista, restantes, is_goal
 
 
 # ? Antes de nada, obtenemos el argumento (path) pasado por consola
@@ -56,42 +57,21 @@ class Estado():
         return False
 
 
-def restantes(cola_bus, cola_total) -> list:
-    """ Función que devuelve una lista con los alumnos que faltan por subir al autobús """
-    if cola_bus is None:
-        return cola_total
-    return [alumno for alumno in cola_total if alumno not in cola_bus]
-
-
-def is_goal(estado) -> bool:
-    """Función que determina si un estado es meta en base a la heurística"""
-    if estado.coste_h == 0:
-        print("\nESTADO META, coste heurístico es 0:", estado.cola_bus)
-        return True
-    return False
-
-
 def expandir(estado, cola_total, heuristica_sel: int) -> list:
     """ Función que consigue los estados posibles de expansión en base a un estado """
-    if mov_reducida_seguidos(estado.cola_bus) or mov_reducida_final(estado.cola_bus, len(estado.cola_restante)):
-        print('ERROR: No se pueden añadir más hijos a este estado')
-        return False  # No se han añadido hijos ya que no se puede seguir por esta rama
-    else:
-        hijos = []
-        for elem in estado.cola_restante:
-            cola_nueva = estado.cola_bus + [elem]
-            nuevo_estado = Estado(estado, cola_nueva,
-                                  restantes(cola_nueva, cola_total), heuristica_sel)
-            hijos.append(nuevo_estado)
-        return hijos
-
-
-def esta_en_lista(estado1, lista) -> bool:
-    """Función que determina si un estado1 está en la lista determinada"""
-    for estado2 in lista:
-        if estado1 == estado2:
-            return True
+    hijos = []
+    for elem in estado.cola_restante:
+        if mov_reducida_seguidos(estado.cola_bus + [elem]) or \
+                mov_reducida_final(estado.cola_bus + [elem], estado.cola_restante):
+            continue
+        cola_nueva = estado.cola_bus + [elem]
+        nuevo_estado = Estado(estado, cola_nueva,
+                              restantes(cola_nueva, cola_total), heuristica_sel)
+        hijos.append(nuevo_estado)
+    if not hijos:
+        print('ERROR: No se han añadido hijos a este estado')
         return False
+    return hijos
 
 
 # ! -------------------------------------------------------------------
@@ -112,22 +92,21 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
     open_list.append(estado_inicial)
 
     # ! Bucle de ejecución de A*
-    while (not goal or len(open_list) >= 0):
+    while not goal and open_list:
         # print("Lista abierta:", open_list)
         # print("Lista cerrada:", closed_list)
         estado_actual = open_list.pop(0)
         print(
             f'Estado actual: {estado_actual.cola_bus}, {estado_actual.coste_h}')
-
         # ! Comprobamos si el estado actual es meta
         if is_goal(estado_actual):
+            print(goal)
             # ! Añadimos el estado meta a la lista cerrada
             closed_list.append(estado_actual)
             # ! Además, se para el cronómetro -> tiempo que ha tardado el algoritmo
             tiempo_total = time.time() - start_time
             # ! Se llega al estado meta
             goal = True
-            break
 
         # ! Si no es meta, se expande
         else:
@@ -170,17 +149,12 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
 
         # ! Ordenamos la lista abierta por coste f e imprimimos
         # ! En caso de que haya empate, se ordena por coste h
-        open_list.sort(key=lambda x: (x.coste_f, x.coste_h))
-        # ! Imprimimos los costest f de los nodos de la lista abierta
+        if len(open_list) > 0:
+            open_list.sort(key=lambda x: (x.coste_f, x.coste_h))
+        # ! Imprimimos los costes f de los nodos de la lista abierta
         # print("\nCOSTES F tras ORDENACIÓN:")
         # print(
         #     f'Costes f de la lista abierta: \n{[elem.coste_f for elem in open_list]}')
-        # # ! Imprimimos la lista abierta (solo cola de bus)
-        # print("\nLISTA ABIERTA:")
-        # print([elem.cola_bus for elem in open_list])
-        # # ! Imprimimos la lista cerrada (solo cola de bus)
-        # print("\nLISTA CERRADA:")
-        # print([elem.cola_bus for elem in closed_list])
 
     # ! Si se ha llegado al estado meta, se imprimen los resultados
 
@@ -213,6 +187,7 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
 
         # ! Obtención de las estadísticas
         # Tiempo total
+        print("Heurística seleccionada:", heuristica_sel)
         estadisticas.append(tiempo_total)
         print("Tiempo total:", tiempo_total)
         # Coste total de la ruta encontrada es el coste f del estado meta
@@ -231,28 +206,28 @@ def a_estrella(estado_inicial, cola_total, heuristica_sel):
         print(ruta_seguida[::-1])
 
         # ! Exportamos la solución a un fichero
-        write_solution(cola_total, output, str(command_prompt()[0]))
+        write_solution(heuristica_sel, cola_total, output, str(command_prompt()[0]))
         # ! Exportamos las estadísticas a un fichero
-        write_statistics(estadisticas, str(command_prompt()[0]))
+        write_statistics(heuristica_sel, estadisticas, str(command_prompt()[0]))
 
     # ! Si la lista abierta está vacía, se ha llegado al final sin encontrar una solución
     else:
-        #len(open_list) == 0:
-        print("\nFRACASO, no se ha encontrado una solución")
-        return None    
+        # len(open_list) == 0:
+        print("\nFRACASO, no se ha encontrado una solución\n")
+        return None
 
-# La función a_estrella se llama desde el main
+
+# ! La función a_estrella se llama desde el main
 def main():
     """ Función principal del programa """
     # Obtenemos el path del fichero y la heurística a utilizar desde la consola
     path = str(command_prompt()[0])
-    heuristica_sel = int(command_prompt()[1])
-    print('heuristica_sel', heuristica_sel)
+    heuristica_sel = int(command_prompt()[1])    
     # Obtenemos la cola total del fichero al que apunta el path
     cola_total = parse_result(path)
-    print(cola_total)
-    print("\nCREANDO ESTADO INICIAL...")
-    # Estado: (padre, cola_bus, cola_total, heuristica_seleccionada)
+    print('\n----------------------------------------')
+    print('\nCREANDO ESTADO INICIAL...')
+    print(f'Heurística seleccionada: {heuristica_sel}\n{cola_total}')
     # Creamos el estado inicial
     estado_inicial = Estado(None, [], cola_total, heuristica_sel)
     # Llamamos a la función a_estrella y le pasamos el estado inicial y la cola total
