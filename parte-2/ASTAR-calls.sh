@@ -4,11 +4,11 @@
 # orden: rel_path ASTARColaBus.py - rel_path alumnos.prob - ID de la heuristica
 
 # Alumnos00: un alumno normal -> posee solución de bajo coste
-python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos00.prob 1
-python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos00.prob 2
-python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos00.prob 3
-python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos00.prob 4
-python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos00.prob 5
+# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos00.prob 1
+# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos00.prob 2
+# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos00.prob 3
+# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos00.prob 4
+# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos00.prob 5
 
 #Alumnos01: un alumno reducido -> no debe haber solución (final)
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos01.prob 1
