@@ -46,8 +46,8 @@ def heuristica3(cola_restante) -> callable:
         else:
             normales += 1
     coste = 0.5*conflictivos + 2*reducida + normales
-    print(
-        f'Conflictivos: {conflictivos}, Reducida: {reducida},  Normales: {normales}, Coste: {coste}')
+    # print(
+    #    f'Conflictivos: {conflictivos}, Reducida: {reducida},  Normales: {normales}, Coste: {coste}')
     return coste
 
 
@@ -65,8 +65,8 @@ def heuristica4(cola_restante) -> callable:
         else:
             normales += 1
     coste = 0.1*conflictivos + 2*reducida + normales
-    print(
-        f'Conflictivos: {conflictivos}, Reducida: {reducida},  Normales: {normales}, Coste: {coste}')
+    # print(
+    #    f'Conflictivos: {conflictivos}, Reducida: {reducida},  Normales: {normales}, Coste: {coste}')
     return coste
 
 
@@ -85,6 +85,6 @@ def heuristica5(cola_restante) -> callable:
         else:
             normales += 1
     coste = 0.9*conflictivos + 2*reducida + normales
-    print(
-        f'Conflictivos: {conflictivos}, Reducida: {reducida},  Normales: {normales}, Coste: {coste}')
+    # print(
+    #    f'Conflictivos: {conflictivos}, Reducida: {reducida},  Normales: {normales}, Coste: {coste}')
     return coste
