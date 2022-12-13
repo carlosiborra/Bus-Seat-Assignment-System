@@ -32,10 +32,11 @@ dominio_movilidad_reducida = [(0,0), (0,1), (0,2), (0,3), (3,0), (3,1), (3,2), (
 # Nota: son las posiciones: (fila, columna) de los alumnos con movilidad reducida (asientos)
 # 1, 2, 3, 4, 13, 14, 15, 16, 17, 18, 19, 20
 
+# Este no se utilizará ya que los alumnos sin movilidad reducida pueden ocupar cualquier asiento
 dominio_sin_movilidad_reducida = [(1,0), (1,1), (1,2), (1,3), (2,0), (2,1), (2,2), (2,3),
                                   (5,0), (5,1), (5,2), (5,3), (6,0), (6,1), (6,2), (6,3),
                                   (7,0), (7,1), (7,2), (7,3)]
-# Nota: son las posiciones de los alumnos sin movilidad reducida (asientos)
+# Nota: son las posiciones de los asientos de no movilidad reducida
 # 5, 6, 7, 8, 9, 10, 11, 12, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32
 
 dominio_primer_ciclo = [(0,0), (0,1), (0,2), (0,3), (1,0), (1,1), (1,2), (1,3), (2,0),
