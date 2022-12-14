@@ -27,7 +27,7 @@
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos07
 # ? Test de 4 alumnos conflictivos y mov. reducida, ciclo 1 - Válido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos19
-# ?  conflictivos y 2 de movilidad reducida - Válido
+# ? Test conflictivos y 2 de movilidad reducida - Válido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos08
 
 # ! Test de movilidad reducida
@@ -56,6 +56,12 @@
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos18
 # ? Dos hermanos conflictivos - Válido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos20
+# ? Hermanos conflictivos en diferentes ciclos (irán al ciclo 1), 8 soluciones - Válido
+# Se observa como el mayor (1) va al asiento pegado al pasillo
+# python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos33
+# ? Hermanos conflictivos en diferentes ciclos (irán al ciclo 1), 8 soluciones - Válido
+# Se observa como el mayor (2) va al asiento pegado al pasillo
+# python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos34
 # ? Un hermano conflictivo y un hermano normal - Válido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos25
 # ? Dos hermanos conflictivos y 3 alumnos conflictivos - Válido
@@ -67,7 +73,7 @@
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos28
 # ? Dos hermanos de mov reducida y distinto ciclo - Válido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos23
-# ? Dos hermanos de mov reducida y conflictivos - Válido
+# ? Dos hermanos de mov reducida y conflictivos, distinto ciclo - Válido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos26
 # ? Varios hermanos - Válido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos24
