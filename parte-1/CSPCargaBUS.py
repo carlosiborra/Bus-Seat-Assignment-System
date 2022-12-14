@@ -176,6 +176,7 @@ for i, alumnoA in enumerate(lista_alumnos):
 # ? 5. Alumnos hermanos han de sentarse juntos
 # Cuando decimos juntos, hay que tener en cuenta el pasillo, situado entre el j 1 y el j 2
 # Si un alumno esta en la columna 1, el otro no puede estar en la 2
+# Además no puede separarles el pasillo
 def hermanos(posicion_alumnoA, posicion_alumnoB):
     """ Si dos alumnos son hermanos, tienen que sentarse juntos """
     if (posicion_alumnoA[0] == posicion_alumnoB[0]) and \
@@ -184,7 +185,9 @@ def hermanos(posicion_alumnoA, posicion_alumnoB):
             (posicion_alumnoA[1]+1, posicion_alumnoB[1]) != 2 and \
             (posicion_alumnoB[1]+1, posicion_alumnoA[1]) != 2 and \
             (posicion_alumnoA[1]-1, posicion_alumnoB[1]) != 1 and \
-            (posicion_alumnoB[1]-1, posicion_alumnoA[1]) != 1:
+            (posicion_alumnoB[1]-1, posicion_alumnoA[1]) != 1 and \
+            (((posicion_alumnoA[1] + posicion_alumnoB[1]) == 1 or  # a un lado u otro del pasillo (0+1)
+             (posicion_alumnoB[1] + posicion_alumnoA[1]) == 5)):  # a un lado u otro del pasillo (2+3)
         return True
     return False
 
@@ -199,11 +202,12 @@ def hermanos_reducida(posicion_alumnoA, posicion_alumnoB):
 
 
 # Si tienen != ciclos, constraint para que el mayor esté al lado del pasillo
-def hermanos_pasillo(posicion_hermano_mayor):
+def hermanos_pasillo(posicion_hermano_mayor, posicion_hermano_menor):
     """ Si dos hermanos, != ciclos, el mayor (alumno entrante) debe estar pegado al pasillo """
     # El mayor ha de estar en la columna 1 o 2 (pegado al pasillo)
     # Que el menor haya de estar al lado del mayor en la (ventana), lo hace el constraint hermanos
-    if posicion_hermano_mayor[1] == 1 or posicion_hermano_mayor[1] == 2:
+    if (posicion_hermano_mayor[1] == 1 or posicion_hermano_mayor[1] == 2) and \
+            (posicion_hermano_menor[1] == 0 or posicion_hermano_menor[1] == 3):
         return True
     return False
 
@@ -233,11 +237,11 @@ for i, alumnoA in enumerate(lista_alumnos):
                     # Si el mayor es el alumno A (este pertece al ciclo 2)
                     if alumnoA[1] > alumnoB[1]:
                         problem.addConstraint(
-                            hermanos_pasillo, (f'{alumnoA[0]}'))
+                            hermanos_pasillo, (f'{alumnoA[0]}', f'{alumnoB[0]}'))
                     # Si el alumno B es el mayor (este pertece al ciclo 2)
                     else:
                         problem.addConstraint(
-                            hermanos_pasillo, (f'{alumnoB[0]}'))
+                            hermanos_pasillo, (f'{alumnoB[0]}', f'{alumnoA[0]}'))
 
 
 # ! -------------------------------------------------------------------
@@ -255,11 +259,16 @@ num_soluciones = len(soluciones)
 res_num_soluciones = f"Número de soluciones: {num_soluciones}"
 print(f"Número de soluciones: {num_soluciones}")
 
-# Obtenemos tres soluciones distintas y aleatorias de todas las soluciones posibles
-# Parseamos todas las soluciones y las guardamos (obtain_sol llama a la función parse_solution)
-# Hacer que se guarden las 10 soluciones (1 específica, 9 aleatorias)
-rand_sol = obtain_sol(lista_alumnos, soluciones, solucion_init, num_soluciones)
 
-# Función para exportar el resultado
-# Esta ha de tener el mismo path y nombre pero acabado en .output
-write_result(str(command_prompt()) + '.output', res_num_soluciones, rand_sol)
+# Si se han encontrado soluciones, las exportamos
+if num_soluciones > 0:
+    # Obtenemos tres soluciones distintas y aleatorias de todas las soluciones posibles
+    # Parseamos todas las soluciones y las guardamos (obtain_sol llama a la función parse_solution)
+    # Hacer que se guarden las 10 soluciones (1 específica, 9 aleatorias)
+    rand_sol = obtain_sol(lista_alumnos, soluciones,
+                          solucion_init, num_soluciones)
+
+    # Función para exportar el resultado
+    # Esta ha de tener el mismo path y nombre pero acabado en .output
+    write_result(str(command_prompt()) + '.output',
+                 res_num_soluciones, rand_sol)

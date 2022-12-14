@@ -41,9 +41,9 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Crear la función write al archivo de salida
 - [X] Sacar 3 soluciones DISTINTAS y ALEATORIAS
 - [X] Crear el archivo .sh para ejecutar el código
-- [ ] Eliminar variables (listas) no usadas
-- [ ] CREAR 15 TESTS ESPECÍFICOS, CHECK BOUNDARIES !!
-- [ ] SACAR TODO DE LA CARPETA CODE, REORDENAR !!
+- [X] Eliminar variables (listas) no usadas
+- [X] CREAR 15 TESTS ESPECÍFICOS, CHECK BOUNDARIES !!
+- [X] SACAR TODO DE LA CARPETA CODE, REORDENAR !!
   `<br/>`
 
 ### Parte 2 - TODO's
@@ -58,7 +58,7 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Exportar el resultado de la parte 2
   - [X] Estadísticas
   - [X] Resultados
-- [ ] CREAR 15 TESTS ESPECÍFICOS, CHECK BOUNDARIES !!
+- [X] CREAR 15 TESTS ESPECÍFICOS, CHECK BOUNDARIES !!
 - [X] Automatizar la comprobación de la validez de las soluciones, costes y heurísticas
 - [X] Comentar mejor el A*
   `<br/><br/>`
@@ -77,6 +77,7 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] ¿Ha de ser la primera solución aleatoria también o la primera que se lanza? Ahora mismo los 3 resultados son aleatorios.
 - [X] Tamaño y longitud de los tests, complejidad, etc.
 - [X] Forma de exportar los resultados
+- [ ] ¿Si hay un alumno de movilidad reducida en 2, puede sentarse otro en 3?
   `<br/>`
 
 ### Parte 2 - Dudas
@@ -85,5 +86,5 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Si un alumno tiene delante un conflictivo y encima este tiene menor id, ¿se multiplica x4?
 - [X] Se coge como archivo test un predet. o uno de la parte 1?
 - [X] Resto de dudas no formuladas ya resultas
-- [ ] Si no se encuentra solución, ¿se deben exportar las estadísticas?
+- [X] Si no se encuentra solución, ¿se deben exportar las estadísticas?
   `<br/><br/>`
