@@ -99,7 +99,7 @@
 # ? Alumnos13: caso normal de solución de Parte 1 sin conflictivos para mayor velocidad y forzando IDs de 2 dígitos
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos13.prob 1
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos13.prob 2
-python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos13.prob 3
+# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos13.prob 3
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos13.prob 4
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos13.prob 5
 
@@ -112,15 +112,8 @@ python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos13.prob 3
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos14.prob 5
 
 # ? Alumnos15: caso normal #2 de la solución de la Parte 1 para comprobar correcto funcionamiento
-# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 1
-# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 2
-# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 3
-# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 4
-# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 5
-
-# ? Alumnos16: caso normal #3 de la solución de la Parte 1 para comprobar correcto funcionamiento
-# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos16.prob 1
-# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos16.prob 2
-# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos16.prob 3
-# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos16.prob 4
-# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos16.prob 5
+python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 1
+python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 2
+python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 3
+python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 4
+python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 5
