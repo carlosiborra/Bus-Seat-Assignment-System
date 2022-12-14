@@ -112,6 +112,7 @@
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos14.prob 5
 
 # ? Alumnos15: caso normal #2 de la solución de la Parte 1 para comprobar correcto funcionamiento
+<<<<<<< HEAD
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 1
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 2
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 3
@@ -124,3 +125,10 @@ python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos16.prob 2
 python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos16.prob 3
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos16.prob 4
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos16.prob 5
+=======
+python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 1
+python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 2
+python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 3
+python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 4
+python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos15.prob 5
+>>>>>>> c939f75f586fd896fa149c4c4a63d99e1a1507af
