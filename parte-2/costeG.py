@@ -22,6 +22,7 @@ def coste(cola_bus) -> callable:
 
     for i, alumno in enumerate(cola_bus):
 
+        # print(alumno)
         # ? Calculamos el número de conflc. con menor id y calculamos el multiplicador
         # print(cola_bus[i][0], cola_bus[i][1])
         posicion = cola_bus[i][1]
@@ -33,31 +34,31 @@ def coste(cola_bus) -> callable:
             multiplicador = 1
 
         # ? Si el alumno es de mov. reducida, el coste es el triple
-        if re.match(r'\d[XC]R', cola_bus[i][0]):
+        if re.match(r'\d*[XC]R', cola_bus[i][0]):
             # ? Si el alumno anterior es conflictivo, el coste es el doble
-            if i > 0 and re.match(r'\dCX', cola_bus[i-1][0]):
+            if i > 0 and re.match(r'\d*CX', cola_bus[i-1][0]):
                 lista_costes.append(3 * (2 * multiplicador))
             else:
                 lista_costes.append(3 * multiplicador)
 
         # ? Si el alumno no es de mov. reducida coste normal
-        if re.match(r'\d[XC]X', cola_bus[i][0]):
+        if re.match(r'\d*[XC]X', cola_bus[i][0]):
             # ? Si el alumno anterior es con movilidad reducida, no tiene coste
-            if i > 0 and re.match(r'\d[XC]R', cola_bus[i-1][0]):
+            if i > 0 and re.match(r'\d*[XC]R', cola_bus[i-1][0]):
                 lista_costes.append(0)
             # ? Si el alumno anterior es conflictivo, el coste es el doble
-            elif i > 0 and re.match(r'\dCX', cola_bus[i-1][0]):
+            elif i > 0 and re.match(r'\d*CX', cola_bus[i-1][0]):
                 lista_costes.append(2 * multiplicador)
             # ? Si no, se suma el coste del alumno
             else:
                 lista_costes.append(1 * multiplicador)
 
         # ? Si hay un alumno conflictivo, el coste del alumno anterior y siguiente es el doble
-        if i > 0 and re.match(r'\dC[XR]', cola_bus[i][0]):
+        if i > 0 and re.match(r'\d*C[XR]', cola_bus[i][0]):
             lista_costes[i-1] = lista_costes[i-1] * 2
 
         # ? Si el alumno es conflictivo, lo añadimos a la lista de conflictivos
-        if re.match(r'\dC[XR]', cola_bus[i][0]):
+        if re.match(r'\d*C[XR]', cola_bus[i][0]):
             id_conflictivos.append(posicion)
 
         # print(lista_costes, multiplicador, id_conflictivos)
@@ -66,5 +67,5 @@ def coste(cola_bus) -> callable:
     return sum(lista_costes)
 
 # ! Infile test
-# cola_bus = [['4XX', 2], ['3CX', 21], ['2XX', 18], ['1XX', 20]]
+# cola_bus = [['11XR', 27], ['10XX', 29], ['4XX', 2], ['5XR', 12], ['3XX', 16], ['6XR', 13], ['2XX', 18], ['1XR', 20], ['7XX', 22]]
 # print(coste(cola_bus))

@@ -99,7 +99,7 @@
 # ? Alumnos13: caso normal de solución de Parte 1 sin conflictivos para mayor velocidad y forzando IDs de 2 dígitos
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos13.prob 1
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos13.prob 2
-# python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos13.prob 3
+python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos13.prob 3
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos13.prob 4
 # python ./parte-2/ASTARColaBus.py ./parte-2/ASTAR-tests/alumnos13.prob 5
 
