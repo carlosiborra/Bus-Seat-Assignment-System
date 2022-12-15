@@ -2,7 +2,7 @@
 
 
 def comprobar_estado(estado):
-    """ Función que comprueba si la heurística es admisible """
+    """ Función que comprueba la validez de una heurística """
     coste_ruta_f, coste_ruta_g, coste_ruta_h = [], [], []
 
     i = True
@@ -16,7 +16,7 @@ def comprobar_estado(estado):
         estado = estado.padre
 
     # Si f(n) != g(n) + h(n) no es admisible
-    if round(sum(coste_ruta_f),2) != round((sum(coste_ruta_g) + sum(coste_ruta_h)),2):
+    if round(sum(coste_ruta_f), 2) != round((sum(coste_ruta_g) + sum(coste_ruta_h)), 2):
         return "ERROR: suma de costes no es correcta"
 
     # Si h(n) > h(n') no es admisible"
@@ -24,9 +24,6 @@ def comprobar_estado(estado):
         if coste_ruta_h[i] > coste_ruta_h[i+1]:
             return "ERROR: heurística no es admisible"
 
-    # # Si h(n) > g(n), no es admisible, en caso de estar en el estado meta
-    # print(sum(coste_ruta_h), sum(coste_ruta_g))
-    # if sum(coste_ruta_h) > sum(coste_ruta_g):
-    #     return "ERROR: heurística no es admisible (B)"
-    # TODO: preguntar a miguel si esta bien
+    # Si h(n) > g(n), no es admisible, en caso de estar en el estado meta
+    
     return "Heurística y costes admisibles"

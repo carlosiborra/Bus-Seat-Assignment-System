@@ -20,7 +20,7 @@ def mov_reducida_final(cola_bus, cola_restante) -> bool:
 # ! Dos alumnos con movilidad reducida no pueden ir seguidos
 def mov_reducida_seguidos(cola_bus) -> bool:
     """ Función que devuelve una lista con los alumnos con movilidad reducida """
-    # Comprobamos si el último alumno de la lista es con movilidad reducida
+    # Comprobamos si hay dos alumnos seguidos de movilidad reducida
     # Lo comprobamos mediante el uso de expresiones regulares
     if len(cola_bus) > 1 and re.match(r'\d*\wR', cola_bus[-1][0]) and \
             re.match(r'\d\wR', cola_bus[-2][0]):

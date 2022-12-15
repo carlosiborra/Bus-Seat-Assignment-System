@@ -1,10 +1,9 @@
 #!/bin/sh
 # ? Forma inicial de ejecutar el sh: $ sh ./parte-1/CSP-calls.sh
-# NOTA: los tests están comentados debido al tamaño y que cada uno comprueba cosas distintas
+# NOTA: los tests están comentados debido a la cantidad de ellos y que comprueban cosas distintas
 # Además de que hay tests que fuerzan que de 0 soluciones posibles o errores
 
-
-# ! Test de solo 1 alumno, 16 soluciones posibles (ciclo 1 y 2)
+# ! Test con solo 1 alumno, 16 soluciones posibles (ciclo 1 y 2)
 # Nota: se ve como alumnos C y X puedan ser asignados a asientos de mov. reducida
 # ? 00. Un alumno normal ciclo 1 -> Válido 16 posibles soluciones
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos00
@@ -16,17 +15,20 @@
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos03
 
 
-# ! Test de boundary conditions que lleven a 0 soluciones posibles
+# ! Caso excepcional
 # ? 04. Test de id de alumnos duplicados - Inválido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos04
+
+
+# ! Tests de alumnos conflictivos (válidos e inválidos)
 # ? 05. Tests de 5 alumnos conflictivos - Inválido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos05
 # ? 06. Test de 5 alumnos conflictivos y mov. reducida - Inválido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos06
-# ? 07. Test de 5 alumnos conflictivos y otros de mov. reducida - Inválido
+# ? 07. Test de mezcla de 5 alumnos conflictivos y mov. reducida - Inválido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos07
 
-# ? 08. Test de 4 alumnos conflictivos es el máximo Válido
+# ? 08. Test de 4 alumnos conflictivos es el máximo - Válido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos08
 # ? 09. Test de 4 alumnos conflictivos y mov. reducida, ciclo 1 - Válido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos09
@@ -93,7 +95,7 @@
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos30
 # ? 31. Varios hermanos con diferentes cualidades - Válido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos31
-# ? 32. Tests de prueba - Válidos
+# ? 32. Tests de prueba - Válido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos32
-# ? 33. Tests de prueba - Válidos
+# ? 33. Tests de prueba - Válido
 # python ./parte-1/CSPCargaBUS.py ./parte-1/CSP-tests/alumnos33
