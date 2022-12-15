@@ -58,7 +58,7 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] Exportar el resultado de la parte 2
   - [X] Estadísticas
   - [X] Resultados
-- [X] CREAR 15 TESTS ESPECÍFICOS, CHECK BOUNDARIES !!
+- [X] CREAR 15 TESTS ESPECÍFICOS, CHECK BOUNDARY VALUES !!
 - [X] Automatizar la comprobación de la validez de las soluciones, costes y heurísticas
 - [X] Comentar mejor el A*
   `<br/><br/>`
@@ -77,7 +77,7 @@ Proyecto 2 la asignatura "Heurística y Optimización" del grado de ingeniería 
 - [X] ¿Ha de ser la primera solución aleatoria también o la primera que se lanza? Ahora mismo los 3 resultados son aleatorios.
 - [X] Tamaño y longitud de los tests, complejidad, etc.
 - [X] Forma de exportar los resultados
-- [ ] ¿Si hay un alumno de movilidad reducida en 2, puede sentarse otro en 3?
+- [X] ¿Si hay un alumno de movilidad reducida en 2, puede sentarse otro en 3?
   `<br/>`
 
 ### Parte 2 - Dudas

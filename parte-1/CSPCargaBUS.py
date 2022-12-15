@@ -139,7 +139,7 @@ for i, alumnoA in enumerate(lista_alumnos):
 # Y en caso de que sobrasen asientos de mov. reducida, podrían sentarse alumnos sin mov. reducida
 
 
-# ? 4. Alumnos conflictivos no pueden setarse cerca de ningun otro conflictivo ni con mov reducida
+# ? 4. Alumnos conflictivos no pueden sentarse cerca de ningun otro conflictivo ni con mov reducida
 # Cuando se dice cerca, es que no pueden estar alrededor de ellos
 def conflictivos(posicion_alumnoA, posicion_alumnoB):
     """ Si un alumno tiene movilidad reducida, asiento de al lado libre """

@@ -24,7 +24,7 @@ def write_statistics(heuristica, input_dict: list, path):
     with open(path[:-5] + f'-{heuristica}' + '.stat', 'w', encoding='UTF8') as file:
         # Escribimos los resultados
         print("\nESTADÍTICAS DE LA EJECUCIÓN:")
-        file.write(f'Tiempo total: {input_dict[0]}\nCoste Total: {input_dict[1]}\
+        file.write(f'Tiempo total: {input_dict[0]}\nCoste total: {int(input_dict[1])}\
                    \nLongitud del plan: {input_dict[2]}\nNodos expandidos: {input_dict[3]}')
         print(f'Tiempo total: {input_dict[0]}\nCoste Total: {input_dict[1]}\
                    \nLongitud del plan: {input_dict[2]}\nNodos expandidos: {input_dict[3]}')
